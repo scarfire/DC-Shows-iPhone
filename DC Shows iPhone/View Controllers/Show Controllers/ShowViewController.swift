@@ -8,7 +8,16 @@
 
 import UIKit
 
-class ShowViewController: UIViewController {
+class ShowViewController: UIViewController, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
+        return cell
+    }
+    
 
     @IBAction func edit(_ sender: Any) {
     }
@@ -26,3 +35,5 @@ class ShowViewController: UIViewController {
     }
     
 }
+
+                                                                                                                                                                                                                                                                                                                                                                            
