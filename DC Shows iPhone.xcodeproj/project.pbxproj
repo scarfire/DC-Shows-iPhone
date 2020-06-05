@@ -14,6 +14,7 @@
 		1C940CE62489D237003A320B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C940CE52489D237003A320B /* Assets.xcassets */; };
 		1C940CE92489D237003A320B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C940CE72489D237003A320B /* LaunchScreen.storyboard */; };
 		1C940CF42489D618003A320B /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF32489D618003A320B /* ShowViewController.swift */; };
+		1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF5248AE096003A320B /* VideosViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		1C940CE82489D237003A320B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C940CEA2489D237003A320B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C940CF32489D618003A320B /* ShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
+		1C940CF5248AE096003A320B /* VideosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				1C940CF32489D618003A320B /* ShowViewController.swift */,
+				1C940CF5248AE096003A320B /* VideosViewController.swift */,
 			);
 			path = "Show Controllers";
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */,
 				1C940CF42489D618003A320B /* ShowViewController.swift in Sources */,
 				1C940CE42489D236003A320B /* DC_Shows_iPhone.xcdatamodeld in Sources */,
 				1C940CDA2489D236003A320B /* AppDelegate.swift in Sources */,
