@@ -16,9 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uSz-bS-pGJ">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSz-bS-pGJ">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="yE5-om-0Gr"/>
                                     <barButtonItem title="Photos" id="q0h-M8-RcG"/>
@@ -29,45 +28,45 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="tmf-3I-KMb"/>
                                 </items>
                             </toolbar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-kX-Ucd">
-                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-kX-Ucd">
+                                <rect key="frame" x="6" y="97" width="402" height="708"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lHP-7b-Nxq">
-                                    <size key="itemSize" width="198" height="230"/>
+                                    <size key="itemSize" width="194" height="230"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TourCell" id="7r1-v5-3wI" customClass="TourCollectionViewCell" customModule="DC_Shows_iPhone" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="198" height="230"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="196" height="230"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="RtV-IR-wMB">
-                                            <rect key="frame" x="0.0" y="0.0" width="198" height="230"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="196" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HTC-a6-WKa">
-                                                    <rect key="frame" x="8" y="8" width="182" height="191"/>
+                                                    <rect key="frame" x="8" y="8" width="180" height="189.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="180" id="bsv-Kh-kkg"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Year&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKE-ha-wQz">
-                                                    <rect key="frame" x="71.5" y="204" width="55" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <rect key="frame" x="66.5" y="202.5" width="63" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="HTC-a6-WKa" secondAttribute="trailing" constant="8" id="32u-EY-oFR"/>
+                                                <constraint firstItem="HTC-a6-WKa" firstAttribute="top" secondItem="RtV-IR-wMB" secondAttribute="top" constant="8" id="2sD-sU-WZQ"/>
+                                                <constraint firstItem="HTC-a6-WKa" firstAttribute="leading" secondItem="RtV-IR-wMB" secondAttribute="leading" constant="8" id="6rq-r1-76o"/>
                                                 <constraint firstItem="JKE-ha-wQz" firstAttribute="centerX" secondItem="RtV-IR-wMB" secondAttribute="centerX" id="GXI-lm-ncC"/>
                                                 <constraint firstItem="JKE-ha-wQz" firstAttribute="top" secondItem="HTC-a6-WKa" secondAttribute="bottom" constant="5" id="Iex-DK-jCA"/>
-                                                <constraint firstAttribute="bottom" secondItem="HTC-a6-WKa" secondAttribute="bottom" constant="31" id="PHU-qU-CWU"/>
-                                                <constraint firstItem="HTC-a6-WKa" firstAttribute="top" secondItem="RtV-IR-wMB" secondAttribute="top" constant="8" id="TCr-vt-fd4"/>
-                                                <constraint firstItem="HTC-a6-WKa" firstAttribute="leading" secondItem="RtV-IR-wMB" secondAttribute="leading" constant="8" id="lTR-Zb-XeH"/>
                                                 <constraint firstAttribute="bottom" secondItem="JKE-ha-wQz" secondAttribute="bottom" constant="6" id="naa-AJ-uAD"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="198" height="230"/>
+                                        <size key="customSize" width="196" height="230"/>
                                         <connections>
                                             <outlet property="lblYear" destination="JKE-ha-wQz" id="IYw-Ib-wMr"/>
                                             <outlet property="poster" destination="HTC-a6-WKa" id="Ecw-3g-8Jv"/>
@@ -81,6 +80,15 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="uSz-bS-pGJ" firstAttribute="top" secondItem="1UW-kX-Ucd" secondAttribute="bottom" constant="8" id="0RZ-Fg-uiC"/>
+                            <constraint firstItem="bUd-id-mSp" firstAttribute="trailing" secondItem="uSz-bS-pGJ" secondAttribute="trailing" id="9gS-1e-PNl"/>
+                            <constraint firstItem="1UW-kX-Ucd" firstAttribute="top" secondItem="bUd-id-mSp" secondAttribute="top" constant="9" id="Dnt-ge-Agq"/>
+                            <constraint firstAttribute="trailing" secondItem="1UW-kX-Ucd" secondAttribute="trailing" constant="6" id="Vqv-jZ-Xfc"/>
+                            <constraint firstItem="1UW-kX-Ucd" firstAttribute="leading" secondItem="bUd-id-mSp" secondAttribute="leading" constant="6" id="qz8-o2-Qe9"/>
+                            <constraint firstItem="bUd-id-mSp" firstAttribute="bottom" secondItem="uSz-bS-pGJ" secondAttribute="bottom" id="vMs-6v-OpV"/>
+                            <constraint firstItem="uSz-bS-pGJ" firstAttribute="leading" secondItem="bUd-id-mSp" secondAttribute="leading" id="xpN-gd-pfq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bUd-id-mSp"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tours" id="Npz-WG-ohj"/>
