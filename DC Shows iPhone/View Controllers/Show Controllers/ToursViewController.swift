@@ -47,6 +47,14 @@ extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tour = tours[indexPath.row]
+        let year = "\(tour.year)"
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Shows") as! ShowsViewController
+        vc.year = year
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension UIImageView {
@@ -64,4 +72,13 @@ extension UIImageView {
          }
       }
    }
+}
+
+extension UIViewController {
+    func showAlert(msg: String) {
+        let alert = UIAlertController(title: "DC Shows", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
