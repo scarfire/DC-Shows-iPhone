@@ -43,8 +43,27 @@ extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSou
         // Configure the cell
         let tour = tours[indexPath.row]
         cell.lblYear.text = "\(tour.year)"
+        let url = URL(string: tour.poster!)
+        let imgView = UIImageView()
+        imgView.downloadImage(from: url!, cell: cell)
         return cell
     }
-    
-    
+
+}
+
+extension UIImageView {
+   func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+      URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+   }
+    func downloadImage(from url: URL, cell: TourCollectionViewCell) {
+      getData(from: url) {
+         data, response, error in
+         guard let data = data, error == nil else {
+            return
+         }
+         DispatchQueue.main.async() {
+            cell.poster.image = UIImage(data: data)
+         }
+      }
+   }
 }
