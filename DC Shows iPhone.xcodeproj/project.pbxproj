@@ -23,6 +23,7 @@
 		1C940D03248AE3C9003A320B /* TourModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D02248AE3C9003A320B /* TourModel.swift */; };
 		1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D04248AE460003A320B /* UserInfoModel.swift */; };
 		1C940D07248AE9EC003A320B /* ToursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D06248AE9EC003A320B /* ToursViewController.swift */; };
+		1C940D0B248B3B2A003A320B /* server in Resources */ = {isa = PBXBuildFile; fileRef = 1C940D0A248B3B2A003A320B /* server */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		1C940D02248AE3C9003A320B /* TourModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourModel.swift; sourceTree = "<group>"; };
 		1C940D04248AE460003A320B /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		1C940D06248AE9EC003A320B /* ToursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursViewController.swift; sourceTree = "<group>"; };
+		1C940D0A248B3B2A003A320B /* server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = server; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		1C940CD82489D236003A320B /* DC Shows iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				1C940D0A248B3B2A003A320B /* server */,
 				1C940CF22489D5B4003A320B /* View Controllers */,
 				1C940CD92489D236003A320B /* AppDelegate.swift */,
 				1C940CDB2489D236003A320B /* SceneDelegate.swift */,
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C940CE92489D237003A320B /* LaunchScreen.storyboard in Resources */,
+				1C940D0B248B3B2A003A320B /* server in Resources */,
 				1C940CE62489D237003A320B /* Assets.xcassets in Resources */,
 				1C940CE12489D236003A320B /* Main.storyboard in Resources */,
 			);
