@@ -36,11 +36,13 @@ extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView
-          .dequeueReusableCell(withReuseIdentifier: "TourCell", for: indexPath)
-        cell.backgroundColor = .black
         
+        let cell = collectionView
+          .dequeueReusableCell(withReuseIdentifier: "TourCell", for: indexPath) as! TourCollectionViewCell
+        //cell.backgroundColor = .black
         // Configure the cell
+        let tour = tours[indexPath.row]
+        cell.lblYear.text = "\(tour.year)"
         return cell
     }
     

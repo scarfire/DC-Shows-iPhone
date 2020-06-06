@@ -24,6 +24,7 @@
 		1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D04248AE460003A320B /* UserInfoModel.swift */; };
 		1C940D0B248B3B2A003A320B /* server in Resources */ = {isa = PBXBuildFile; fileRef = 1C940D0A248B3B2A003A320B /* server */; };
 		1C940D0E248C30BD003A320B /* ToursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D0D248C30BD003A320B /* ToursViewController.swift */; };
+		1C940D33248C3DDE003A320B /* TourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D32248C3DDE003A320B /* TourCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		1C940D04248AE460003A320B /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		1C940D0A248B3B2A003A320B /* server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = server; sourceTree = "<group>"; };
 		1C940D0D248C30BD003A320B /* ToursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursViewController.swift; sourceTree = "<group>"; };
+		1C940D32248C3DDE003A320B /* TourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		1C940CD82489D236003A320B /* DC Shows iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				1C940D31248C3DBA003A320B /* Custom Controls */,
 				1C940D0C248C305B003A320B /* DataModels */,
 				1C940D0A248B3B2A003A320B /* server */,
 				1C940CF22489D5B4003A320B /* View Controllers */,
@@ -130,6 +133,14 @@
 				1C940D04248AE460003A320B /* UserInfoModel.swift */,
 			);
 			path = DataModels;
+			sourceTree = "<group>";
+		};
+		1C940D31248C3DBA003A320B /* Custom Controls */ = {
+			isa = PBXGroup;
+			children = (
+				1C940D32248C3DDE003A320B /* TourCollectionViewCell.swift */,
+			);
+			path = "Custom Controls";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +219,7 @@
 				1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */,
 				1C940CF42489D618003A320B /* ShowViewController.swift in Sources */,
 				1C940CE42489D236003A320B /* DC_Shows_iPhone.xcdatamodeld in Sources */,
+				1C940D33248C3DDE003A320B /* TourCollectionViewCell.swift in Sources */,
 				1C940CFF248AE34D003A320B /* VideoModel.swift in Sources */,
 				1C940CFD248AE334003A320B /* ShowModel.swift in Sources */,
 				1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */,
