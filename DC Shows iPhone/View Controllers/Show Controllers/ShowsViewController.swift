@@ -16,6 +16,7 @@ class ShowsViewController: UIViewController, ShowModelProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         let showModel = ShowModel()
+        showModel.delegate = self
         showModel.downloadItems(year: year!)
     }
     
