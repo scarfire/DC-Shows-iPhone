@@ -25,12 +25,10 @@ class ToursViewController: UIViewController, TourModelProtocol {
         func itemsDownloaded(items: [TourModel]) {
                 tours = items
                 collectionView.reloadData()
-    //         let tour = tours[2]
-    //         print(tour.poster!)
         }
 }
 
-extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tours.count
     }
