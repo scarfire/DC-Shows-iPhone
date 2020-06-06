@@ -15,9 +15,6 @@ class ToursViewController: UIViewController, TourModelProtocol {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            collectionView.delegate = self
-            collectionView.dataSource = self
-
             let tourModel = TourModel()
             tourModel.delegate = self
             tourModel.downloadItems()
