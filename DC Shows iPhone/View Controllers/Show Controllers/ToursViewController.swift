@@ -9,10 +9,14 @@
 import UIKit
 
 class ToursViewController: UIViewController, TourModelProtocol {
-        var tours: [TourModel] = []
+    @IBOutlet weak var collectionView: UICollectionView!
+    var tours: [TourModel] = []
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            
+            collectionView.delegate = self
+            collectionView.dataSource = self
 
             let tourModel = TourModel()
             tourModel.delegate = self
@@ -21,7 +25,24 @@ class ToursViewController: UIViewController, TourModelProtocol {
 
         func itemsDownloaded(items: [TourModel]) {
                 tours = items
+            collectionView.reloadData()
     //            let tour = tours[2]
     //            print(tour.poster!)
         }
+}
+
+extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tours.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView
+          .dequeueReusableCell(withReuseIdentifier: "TourCell", for: indexPath)
+        cell.backgroundColor = .black
+        // Configure the cell
+        return cell
+    }
+    
+    
 }
