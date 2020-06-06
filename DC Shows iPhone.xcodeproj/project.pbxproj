@@ -22,8 +22,8 @@
 		1C940D01248AE3A5003A320B /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D00248AE3A5003A320B /* SongModel.swift */; };
 		1C940D03248AE3C9003A320B /* TourModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D02248AE3C9003A320B /* TourModel.swift */; };
 		1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D04248AE460003A320B /* UserInfoModel.swift */; };
-		1C940D07248AE9EC003A320B /* ToursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D06248AE9EC003A320B /* ToursViewController.swift */; };
 		1C940D0B248B3B2A003A320B /* server in Resources */ = {isa = PBXBuildFile; fileRef = 1C940D0A248B3B2A003A320B /* server */; };
+		1C940D0E248C30BD003A320B /* ToursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D0D248C30BD003A320B /* ToursViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +44,8 @@
 		1C940D00248AE3A5003A320B /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 		1C940D02248AE3C9003A320B /* TourModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourModel.swift; sourceTree = "<group>"; };
 		1C940D04248AE460003A320B /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
-		1C940D06248AE9EC003A320B /* ToursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursViewController.swift; sourceTree = "<group>"; };
 		1C940D0A248B3B2A003A320B /* server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = server; sourceTree = "<group>"; };
+		1C940D0D248C30BD003A320B /* ToursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +78,7 @@
 		1C940CD82489D236003A320B /* DC Shows iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				1C940CFB248AE2F0003A320B /* Models */,
+				1C940D0C248C305B003A320B /* DataModels */,
 				1C940D0A248B3B2A003A320B /* server */,
 				1C940CF22489D5B4003A320B /* View Controllers */,
 				1C940CD92489D236003A320B /* AppDelegate.swift */,
@@ -106,7 +106,7 @@
 				1C940CF5248AE096003A320B /* VideosViewController.swift */,
 				1C940CF7248AE11F003A320B /* AddVideoViewController.swift */,
 				1C940CF9248AE136003A320B /* ShowEditViewController.swift */,
-				1C940D06248AE9EC003A320B /* ToursViewController.swift */,
+				1C940D0D248C30BD003A320B /* ToursViewController.swift */,
 			);
 			path = "Show Controllers";
 			sourceTree = "<group>";
@@ -120,7 +120,7 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		1C940CFB248AE2F0003A320B /* Models */ = {
+		1C940D0C248C305B003A320B /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
 				1C940CFC248AE334003A320B /* ShowModel.swift */,
@@ -129,7 +129,7 @@
 				1C940D02248AE3C9003A320B /* TourModel.swift */,
 				1C940D04248AE460003A320B /* UserInfoModel.swift */,
 			);
-			path = Models;
+			path = DataModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,7 +214,7 @@
 				1C940D01248AE3A5003A320B /* SongModel.swift in Sources */,
 				1C940D03248AE3C9003A320B /* TourModel.swift in Sources */,
 				1C940CFA248AE136003A320B /* ShowEditViewController.swift in Sources */,
-				1C940D07248AE9EC003A320B /* ToursViewController.swift in Sources */,
+				1C940D0E248C30BD003A320B /* ToursViewController.swift in Sources */,
 				1C940CDA2489D236003A320B /* AppDelegate.swift in Sources */,
 				1C940CDC2489D236003A320B /* SceneDelegate.swift in Sources */,
 			);
