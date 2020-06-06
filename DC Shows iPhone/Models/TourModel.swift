@@ -31,7 +31,7 @@ class TourModel {
             if let year = jsonElement["year"] as? Int,
                 let poster = jsonElement["poster"] as? String {
                 tour.year = year
-                tour.poster = poster
+                tour.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
             }
             tours.append(tour)
         }

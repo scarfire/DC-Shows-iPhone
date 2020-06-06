@@ -78,6 +78,7 @@
 		1C940CD82489D236003A320B /* DC Shows iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				1C940CFB248AE2F0003A320B /* Models */,
 				1C940D0A248B3B2A003A320B /* server */,
 				1C940CF22489D5B4003A320B /* View Controllers */,
 				1C940CD92489D236003A320B /* AppDelegate.swift */,
@@ -113,7 +114,6 @@
 		1C940CF22489D5B4003A320B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1C940CFB248AE2F0003A320B /* Models */,
 				1C940CF12489D5A5003A320B /* Show Controllers */,
 				1C940CF02489D59C003A320B /* Media Controllers */,
 			);
