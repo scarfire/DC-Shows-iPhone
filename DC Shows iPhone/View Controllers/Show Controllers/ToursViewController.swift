@@ -24,8 +24,8 @@ class ToursViewController: UIViewController, TourModelProtocol {
 
     func itemsDownloaded(items: [TourModel]) {
             tours = items
-            let tour = tours[2]
-            print(tour.poster!)
+//            let tour = tours[2]
+//            print(tour.poster!)
     }
 
 }
