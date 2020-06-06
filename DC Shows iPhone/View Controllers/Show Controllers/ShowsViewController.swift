@@ -8,15 +8,20 @@
 
 import UIKit
 
-class ShowsViewController: UIViewController {
-    var year: String?
+class ShowsViewController: UIViewController, ShowModelProtocol {
     
+    var year: String?
+    var shows: [ShowModel] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        showAlert(msg: year!)
-        // Do any additional setup after loading the view.
+        let showModel = ShowModel()
+        showModel.downloadItems(year: year!)
     }
     
-
+    func itemsDownloaded(items: [ShowModel]) {
+        shows = items
+        showAlert(msg: "\(shows.count)")
+    }
 
 }

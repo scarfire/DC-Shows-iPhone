@@ -13,30 +13,36 @@ protocol ShowModelProtocol: class {
 }
 
 class ShowModel: NSObject {
-    var year: Int = 0
+    var id: Int = 0
+    var location: String? = ""
+    var showDate: String? = ""
     var poster: String? = ""
 
     weak var delegate: ShowModelProtocol!
 
-    func downloadItems() {
+    func downloadItems(year: String) {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshowsfortour.php?year=\(year)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
 
         var jsonElement = NSDictionary()
-        var tours = [TourModel]()
+        var shows = [ShowModel]()
         for i in 0 ..< jsonResult.count {
             jsonElement = jsonResult[i] as! NSDictionary
-            let tour = TourModel()
-            if let year = jsonElement["year"] as? Int,
+            let show = ShowModel()
+            if let id = jsonElement["id"] as? Int,
+                let location = jsonElement["city_state_country"] as? String,
+                let showDate = jsonElement["showdate"] as? String,
                 let poster = jsonElement["poster"] as? String {
-                tour.year = year
-                tour.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
+                show.id = id
+                show.showDate = showDate
+                show.location = location
+                show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
             }
-            tours.append(tour)
+            shows.append(show)
         }
         DispatchQueue.main.async(execute: { () -> Void in
-            self.delegate.itemsDownloaded(items: tours)
+            self.delegate.itemsDownloaded(items: shows)
         })
     }
 }
