@@ -13,6 +13,8 @@ class ShowsViewController: UIViewController, ShowModelProtocol {
     var year: String?
     var shows: [ShowModel] = []
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let showModel = ShowModel()
@@ -22,7 +24,40 @@ class ShowsViewController: UIViewController, ShowModelProtocol {
     
     func itemsDownloaded(items: [ShowModel]) {
         shows = items
-        showAlert(msg: "\(shows.count)")
+        collectionView.reloadData()
+    }
+
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+       URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+     func downloadImage(from url: URL, cell: ShowCollectionViewCell) {
+       getData(from: url) {
+          data, response, error in
+          guard let data = data, error == nil else {
+             return
+          }
+          DispatchQueue.main.async() {
+             cell.poster.image = UIImage(data: data)
+          }
+       }
+    }
+}
+
+extension ShowsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return shows.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView
+          .dequeueReusableCell(withReuseIdentifier: "ShowCell", for: indexPath) as! ShowCollectionViewCell
+        let show = shows[indexPath.row]
+        cell.lblDate.text = "\(show.showDate!)"
+        cell.lblLocation.text = "\(show.location!)"
+        let url = URL(string: show.poster!)
+        downloadImage(from: url!, cell: cell)
+        return cell
     }
 
 }
