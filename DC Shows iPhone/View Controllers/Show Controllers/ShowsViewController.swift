@@ -59,5 +59,12 @@ extension ShowsViewController: UICollectionViewDelegate, UICollectionViewDataSou
         downloadImage(from: url!, cell: cell)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Show") as! ShowViewController
+        vc.showID = "\(shows[indexPath.row].id)"
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }

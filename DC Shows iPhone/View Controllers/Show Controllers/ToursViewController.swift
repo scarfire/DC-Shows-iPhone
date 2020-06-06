@@ -26,6 +26,21 @@ class ToursViewController: UIViewController, TourModelProtocol {
                 tours = items
                 collectionView.reloadData()
         }
+    
+        func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+           URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+        }
+    
+        func downloadImage(from url: URL, cell: TourCollectionViewCell) {
+            getData(from: url) { data, response, error in
+                  guard let data = data, error == nil else {
+                     return
+                  }
+                  DispatchQueue.main.async() {
+                    cell.poster.image = UIImage(data: data)
+                  }
+            }
+        }
 }
 
 extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -42,36 +57,16 @@ extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let tour = tours[indexPath.row]
         cell.lblYear.text = "\(tour.year)"
         let url = URL(string: tour.poster!)
-        let imgView = UIImageView()
-        imgView.downloadImage(from: url!, cell: cell)
+        downloadImage(from: url!, cell: cell)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tour = tours[indexPath.row]
-        let year = "\(tour.year)"
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "Shows") as! ShowsViewController
-        vc.year = year
+        vc.year = "\(tours[indexPath.row].year)"
         navigationController?.pushViewController(vc, animated: true)
     }
-}
-
-extension UIImageView {
-   func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-      URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-   }
-    func downloadImage(from url: URL, cell: TourCollectionViewCell) {
-      getData(from: url) {
-         data, response, error in
-         guard let data = data, error == nil else {
-            return
-         }
-         DispatchQueue.main.async() {
-            cell.poster.image = UIImage(data: data)
-         }
-      }
-   }
 }
 
 extension UIViewController {

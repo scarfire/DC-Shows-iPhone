@@ -8,17 +8,18 @@
 
 import UIKit
 
-class ShowViewController: UIViewController, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
-        return cell
-    }
-    
+class ShowViewController: UIViewController {
 
+    var showID: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //showAlert(msg: showID!)
+//        let showModel = ShowModel()
+//        showModel.delegate = self
+//        showModel.downloadItems(year: year!)
+    }
+    
     @IBAction func edit(_ sender: Any) {
     }
 
@@ -36,4 +37,15 @@ class ShowViewController: UIViewController, UITableViewDataSource {
     
 }
 
+extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
+        return cell
+    }
+    
+}
                                                                                                                                                                                                                                                                                                                                                                             
