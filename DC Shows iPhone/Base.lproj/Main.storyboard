@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cGw-44-Hbx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KHI-4E-7IE">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,20 +7,36 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tours View Controller-->
+        <!--Tours-->
         <scene sceneID="33J-dp-MX3">
             <objects>
                 <viewController storyboardIdentifier="Tours" id="cGw-44-Hbx" customClass="ToursViewController" customModule="DC_Shows_iPhone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8dn-V4-1RB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uSz-bS-pGJ">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="yE5-om-0Gr"/>
+                                    <barButtonItem title="Photos" id="q0h-M8-RcG"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="3ly-8Q-YJY"/>
+                                    <barButtonItem title="Search" id="DpJ-fD-FiR"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kCR-a1-Fl9"/>
+                                    <barButtonItem title="Random" id="9o8-kJ-UHc"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="tmf-3I-KMb"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="bUd-id-mSp"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Tours" id="Npz-WG-ohj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7lQ-iQ-UeU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="-636"/>
+            <point key="canvasLocation" x="1042.0289855072465" y="-636.16071428571422"/>
         </scene>
         <!--Show View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -192,6 +208,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="123.88392857142857"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qNg-AJ-Sqr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KHI-4E-7IE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ueU-Bf-HPX">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cGw-44-Hbx" kind="relationship" relationship="rootViewController" id="O2E-EV-lJ4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xWb-oc-Erj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="-636.16071428571422"/>
         </scene>
     </scenes>
 </document>
