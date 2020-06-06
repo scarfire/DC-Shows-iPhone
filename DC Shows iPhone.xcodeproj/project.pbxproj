@@ -15,6 +15,14 @@
 		1C940CE92489D237003A320B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C940CE72489D237003A320B /* LaunchScreen.storyboard */; };
 		1C940CF42489D618003A320B /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF32489D618003A320B /* ShowViewController.swift */; };
 		1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF5248AE096003A320B /* VideosViewController.swift */; };
+		1C940CF8248AE11F003A320B /* AddVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF7248AE11F003A320B /* AddVideoViewController.swift */; };
+		1C940CFA248AE136003A320B /* ShowEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF9248AE136003A320B /* ShowEditViewController.swift */; };
+		1C940CFD248AE334003A320B /* ShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CFC248AE334003A320B /* ShowModel.swift */; };
+		1C940CFF248AE34D003A320B /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CFE248AE34D003A320B /* VideoModel.swift */; };
+		1C940D01248AE3A5003A320B /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D00248AE3A5003A320B /* SongModel.swift */; };
+		1C940D03248AE3C9003A320B /* TourModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D02248AE3C9003A320B /* TourModel.swift */; };
+		1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D04248AE460003A320B /* UserInfoModel.swift */; };
+		1C940D07248AE9EC003A320B /* ToursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D06248AE9EC003A320B /* ToursViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +36,14 @@
 		1C940CEA2489D237003A320B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C940CF32489D618003A320B /* ShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
 		1C940CF5248AE096003A320B /* VideosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosViewController.swift; sourceTree = "<group>"; };
+		1C940CF7248AE11F003A320B /* AddVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoViewController.swift; sourceTree = "<group>"; };
+		1C940CF9248AE136003A320B /* ShowEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditViewController.swift; sourceTree = "<group>"; };
+		1C940CFC248AE334003A320B /* ShowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowModel.swift; sourceTree = "<group>"; };
+		1C940CFE248AE34D003A320B /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		1C940D00248AE3A5003A320B /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
+		1C940D02248AE3C9003A320B /* TourModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourModel.swift; sourceTree = "<group>"; };
+		1C940D04248AE460003A320B /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		1C940D06248AE9EC003A320B /* ToursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +100,9 @@
 			children = (
 				1C940CF32489D618003A320B /* ShowViewController.swift */,
 				1C940CF5248AE096003A320B /* VideosViewController.swift */,
+				1C940CF7248AE11F003A320B /* AddVideoViewController.swift */,
+				1C940CF9248AE136003A320B /* ShowEditViewController.swift */,
+				1C940D06248AE9EC003A320B /* ToursViewController.swift */,
 			);
 			path = "Show Controllers";
 			sourceTree = "<group>";
@@ -91,10 +110,23 @@
 		1C940CF22489D5B4003A320B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1C940CFB248AE2F0003A320B /* Models */,
 				1C940CF12489D5A5003A320B /* Show Controllers */,
 				1C940CF02489D59C003A320B /* Media Controllers */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		1C940CFB248AE2F0003A320B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1C940CFC248AE334003A320B /* ShowModel.swift */,
+				1C940CFE248AE34D003A320B /* VideoModel.swift */,
+				1C940D00248AE3A5003A320B /* SongModel.swift */,
+				1C940D02248AE3C9003A320B /* TourModel.swift */,
+				1C940D04248AE460003A320B /* UserInfoModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,9 +200,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C940CF8248AE11F003A320B /* AddVideoViewController.swift in Sources */,
 				1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */,
 				1C940CF42489D618003A320B /* ShowViewController.swift in Sources */,
 				1C940CE42489D236003A320B /* DC_Shows_iPhone.xcdatamodeld in Sources */,
+				1C940CFF248AE34D003A320B /* VideoModel.swift in Sources */,
+				1C940CFD248AE334003A320B /* ShowModel.swift in Sources */,
+				1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */,
+				1C940D01248AE3A5003A320B /* SongModel.swift in Sources */,
+				1C940D03248AE3C9003A320B /* TourModel.swift in Sources */,
+				1C940CFA248AE136003A320B /* ShowEditViewController.swift in Sources */,
+				1C940D07248AE9EC003A320B /* ToursViewController.swift in Sources */,
 				1C940CDA2489D236003A320B /* AppDelegate.swift in Sources */,
 				1C940CDC2489D236003A320B /* SceneDelegate.swift in Sources */,
 			);

@@ -15,7 +15,17 @@ class VideosViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
+/*
+     Get MySQL data from server
+     
+     func get() {
+         let url = URL(string: "https://toddlstevens.com/apps/walking/getallevents.php")
+         let data = try? Data(contentsOf: url!)
+         values = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
+         tableView.reloadData()
+       }
+     
+     */
     // Delete a row from video list
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //          if editingStyle == .delete {
