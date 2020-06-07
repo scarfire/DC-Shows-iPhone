@@ -14,6 +14,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     var showDate: String?
     var searchStr: String?
     var setList: [SongModel] = []
+    var defaultAudio: String?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imgPoster: UIImageView!
@@ -54,6 +55,9 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     @IBAction func audio(_ sender: Any) {
+        if let url = URL(string: "\(defaultAudio!)") {
+            UIApplication.shared.open(url)
+        }
     }
     
     @IBAction func random(_ sender: Any) {
@@ -75,6 +79,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
             return
         }
         showDate = show.showDate!
+        defaultAudio = show.defaultAudio!
         lblDate.text  = show.showDatePrint!
         lblCity.text = show.location!
         lblBuilding.text = show.building!

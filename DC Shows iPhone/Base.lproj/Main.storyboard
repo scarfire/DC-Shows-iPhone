@@ -17,17 +17,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="fVW-Tn-gbX">
-                                <rect key="frame" x="0.0" y="88" width="414" height="785"/>
+                                <rect key="frame" x="5" y="88" width="404" height="785"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="Enter a partial song title" translatesAutoresizingMaskIntoConstraints="NO" id="1Hi-yO-h2r">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="404" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-kX-Ucd">
-                                        <rect key="frame" x="0.0" y="67" width="414" height="658"/>
+                                        <rect key="frame" x="0.0" y="67" width="404" height="658"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lHP-7b-Nxq">
-                                            <size key="itemSize" width="194" height="230"/>
+                                            <size key="itemSize" width="196" height="230"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -74,7 +74,7 @@
                                         </connections>
                                     </collectionView>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSz-bS-pGJ">
-                                        <rect key="frame" x="0.0" y="736" width="414" height="49"/>
+                                        <rect key="frame" x="0.0" y="736" width="404" height="49"/>
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="yE5-om-0Gr"/>
                                             <barButtonItem title="Photos" id="q0h-M8-RcG">
@@ -103,8 +103,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fVW-Tn-gbX" firstAttribute="top" secondItem="bUd-id-mSp" secondAttribute="top" id="DBA-VD-mRP"/>
-                            <constraint firstItem="bUd-id-mSp" firstAttribute="trailing" secondItem="fVW-Tn-gbX" secondAttribute="trailing" id="bMJ-cQ-Xn0"/>
-                            <constraint firstItem="fVW-Tn-gbX" firstAttribute="leading" secondItem="bUd-id-mSp" secondAttribute="leading" id="pGn-Gh-CLT"/>
+                            <constraint firstItem="bUd-id-mSp" firstAttribute="trailing" secondItem="fVW-Tn-gbX" secondAttribute="trailing" constant="5" id="bMJ-cQ-Xn0"/>
+                            <constraint firstItem="fVW-Tn-gbX" firstAttribute="leading" secondItem="bUd-id-mSp" secondAttribute="leading" constant="5" id="pGn-Gh-CLT"/>
                             <constraint firstItem="fVW-Tn-gbX" firstAttribute="bottom" secondItem="bUd-id-mSp" secondAttribute="bottom" constant="11" id="zPy-hn-hCU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bUd-id-mSp"/>
