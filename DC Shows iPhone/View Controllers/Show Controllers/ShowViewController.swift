@@ -60,6 +60,18 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         tableView.reloadData()
     }
 
+    func getSetName(set: String) -> String {
+        switch (set) {
+        case "1":
+            return "1st Set"
+        case "2":
+            return "2nd Set"
+        case "3":
+            return "3rd Set"
+        default:
+            return "Encore"
+        }
+    }
 }
 
 extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
@@ -73,6 +85,7 @@ extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
+        let song = setList[indexPath.row]
         cell.textLabel?.text = setList[indexPath.row].title!
         return cell
     }
