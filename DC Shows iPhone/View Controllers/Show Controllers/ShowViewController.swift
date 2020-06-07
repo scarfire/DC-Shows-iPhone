@@ -27,8 +27,15 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         showDetailModel.delegate  = self
-        showDetailModel.downloadSetList(id: showID!)
-        showDetailModel.downloadDetails(id: showID!)
+        if showID != nil {
+            // Coming from Shows
+            showDetailModel.downloadSetList(id: showID!)
+            showDetailModel.downloadDetails(id: showID!)
+        }
+        else {
+            // Random - need random ID first
+            showDetailModel.getRandomShowID()
+        }
     }
 
     @IBAction func edit(_ sender: Any) {

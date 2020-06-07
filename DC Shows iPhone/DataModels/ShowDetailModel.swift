@@ -24,6 +24,21 @@ class ShowDetailModel: NSObject {
     
     weak var delegate: ShowDetailsModelProtocol!
  
+    func getRandomShowID() {
+        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getrandomshow.php")
+        let data = try? Data(contentsOf: url!)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
+        var jsonElement = NSDictionary()
+        jsonElement = jsonResult[0] as! NSDictionary
+        if let id = jsonElement["id"] as? Int {
+            self.id = id
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.downloadDetails(id: "\(self.id)")
+                self.downloadSetList(id: "\(self.id)")
+            })
+        }
+    }
+    
     func downloadDetails(id: String) {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshow.php?show_id=\(id)")
         let data = try? Data(contentsOf: url!)

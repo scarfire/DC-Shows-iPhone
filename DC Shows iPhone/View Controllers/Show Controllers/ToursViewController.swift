@@ -23,6 +23,9 @@ class ToursViewController: UIViewController, TourModelProtocol {
         }
 
     @IBAction func random(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Show") as! ShowViewController
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func search(_ sender: Any) {
