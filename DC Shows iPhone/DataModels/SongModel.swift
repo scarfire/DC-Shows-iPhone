@@ -9,7 +9,6 @@
 import Foundation
 
 class SongModel: NSObject {
-    var id: Int = 0
     var title: String? = ""
     var set: String? = ""
 }

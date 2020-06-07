@@ -13,22 +13,22 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     var showID: String?
     var setList: [SongModel] = []
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imgPoster: UIImageView!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblRating: UILabel!
     @IBOutlet weak var lblCity: UILabel!
     @IBOutlet weak var lblBuilding: UILabel!
-    
+
+    let showDetailModel = ShowDetailModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let showDetailModel = ShowDetailModel()
+        tableView.delegate = self
+        tableView.dataSource = self
         showDetailModel.delegate  = self
-        showDetailModel.downloadDetails(id: showID!)
         showDetailModel.downloadSetList(id: showID!)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
+    //    showDetailModel.downloadDetails(id: showID!)
     }
 
     @IBAction func edit(_ sender: Any) {
@@ -56,23 +56,35 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     func setListDownloaded(setList: [SongModel]) {
+        self.setList = setList
+        print("Reloading table")
+        tableView.reloadData()
+        print("Table reloaded")
+        print("Table refreshed")
     }
 
-    
 }
 
 extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        print("Checking Number of sections")
+        return 1
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Checking Number of rows")
         return setList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("Adding row")
         let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
+        cell.textLabel?.text = setList[indexPath.row].title!
         return cell
     }
     
 }
-                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                              
 extension ShowViewController {
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()

@@ -59,10 +59,8 @@ class ShowDetailModel: NSObject {
         for i in 0 ..< jsonResult.count {
             jsonElement = jsonResult[i] as! NSDictionary
             let song = SongModel()
-            if let id = jsonElement["id"] as? Int,
-                let title = jsonElement["title"] as? String,
-                let set = jsonElement["set"] as? String {
-                song.id = id
+            if  let title = jsonElement["title"] as? String,
+                let set = jsonElement["set_number"] as? String {
                 song.title = title
                 song.set = set
             }
