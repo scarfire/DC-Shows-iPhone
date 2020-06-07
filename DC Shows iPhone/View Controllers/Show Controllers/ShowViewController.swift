@@ -98,6 +98,8 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     func setListDownloaded(setList: [SongModel]) {
         self.setList = setList
         tableView.reloadData()
+        let topRow = IndexPath(row: 0, section: 0)
+        tableView.scrollToRow(at: topRow, at: .top, animated: true)
     }
 }
 
