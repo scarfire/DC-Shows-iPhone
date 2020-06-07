@@ -23,6 +23,11 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
         tourModel.downloadItems()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchBar.text = ""
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text  == "" {
             return
