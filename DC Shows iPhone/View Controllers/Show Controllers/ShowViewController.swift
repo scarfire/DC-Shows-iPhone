@@ -11,6 +11,7 @@ import UIKit
 class ShowViewController: UIViewController, ShowDetailsModelProtocol {
 
     var showID: String?
+    var showDate: String?
     var setList: [SongModel] = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +25,10 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipeLeft:"))
+//        recognizer.direction = .left
+//        self.view .addGestureRecognizer(recognizer)
+        
         tableView.delegate = self
         tableView.dataSource = self
         showDetailModel.delegate  = self
@@ -54,13 +59,18 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         showDetailModel.getRandomShowID()
     }
     
+    @IBAction func swipeLeft(_ sender: Any) {
+        showDetailModel.getNextShow(showDate: showDate!)
+    }
+    
     func detailsDownloaded(show: ShowDetailModel) {
         if show.id == 0 {
             // Sometimes no ID exists - due to timing?
             NSLog("Missing id")
             return
         }
-        lblDate.text  = show.showDate!
+        showDate = show.showDate!
+        lblDate.text  = show.showDatePrint!
         lblCity.text = show.location!
         lblBuilding.text = show.building!
         lblRating.text = "" // populate later from Core Data if exists

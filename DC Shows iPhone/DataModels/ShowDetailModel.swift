@@ -18,12 +18,28 @@ class ShowDetailModel: NSObject {
     var location: String? = ""
     var building: String? = ""
     var showDate: String? = ""
+    var showDatePrint: String? = ""
     var poster: String? = ""
     var defaultAudio: String? = ""
     var previousSet: String = ""
     
     weak var delegate: ShowDetailsModelProtocol!
  
+    func getNextShow(showDate: String) {
+        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getnextshow.php?show_date=\(showDate)")
+        let data = try? Data(contentsOf: url!)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
+        var jsonElement = NSDictionary()
+        jsonElement = jsonResult[0] as! NSDictionary
+        if let id = jsonElement["id"] as? Int {
+            self.id = id
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.downloadDetails(id: "\(self.id)")
+                self.downloadSetList(id: "\(self.id)")
+            })
+        }
+    }
+
     func getRandomShowID() {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getrandomshow.php")
         let data = try? Data(contentsOf: url!)
@@ -50,11 +66,13 @@ class ShowDetailModel: NSObject {
         if let id = jsonElement["id"] as? Int,
             let location = jsonElement["city_state_country"] as? String,
             let building = jsonElement["building"] as? String,
-            let showDate = jsonElement["showdate"] as? String,
+            let showDate = jsonElement["show_date"] as? String,
+            let showDatePrint = jsonElement["showdate"] as? String,
             let audio = jsonElement["audio"] as? String,
             let poster = jsonElement["poster"] as? String {
             show.id = id
             show.showDate = showDate
+            show.showDatePrint = showDatePrint
             show.location = location
             show.building = building
             show.defaultAudio = audio
