@@ -368,6 +368,7 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="btnAudio" destination="Kuh-gj-6mo" id="PBR-aQ-qfT"/>
                         <outlet property="imgPoster" destination="3eS-LT-Zqw" id="kCP-d7-Zpz"/>
                         <outlet property="lblBuilding" destination="FRt-ar-9Nz" id="sFI-fV-8ic"/>
                         <outlet property="lblCity" destination="e6z-2K-xO8" id="erj-gg-3ql"/>

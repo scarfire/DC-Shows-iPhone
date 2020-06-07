@@ -22,7 +22,8 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     @IBOutlet weak var lblRating: UILabel!
     @IBOutlet weak var lblCity: UILabel!
     @IBOutlet weak var lblBuilding: UILabel!
-
+    @IBOutlet weak var btnAudio: UIBarButtonItem!
+    
     let showDetailModel = ShowDetailModel()
 
     override func viewDidLoad() {
@@ -80,6 +81,12 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         }
         showDate = show.showDate!
         defaultAudio = show.defaultAudio!
+        if defaultAudio == "" {
+            btnAudio.isEnabled = false
+        }
+        else {
+            btnAudio.isEnabled = true
+        }
         lblDate.text  = show.showDatePrint!
         lblCity.text = show.location!
         lblBuilding.text = show.building!
