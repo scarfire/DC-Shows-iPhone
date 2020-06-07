@@ -51,9 +51,15 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     @IBAction func random(_ sender: Any) {
+        showDetailModel.getRandomShowID()
     }
     
     func detailsDownloaded(show: ShowDetailModel) {
+        if show.id == 0 {
+            // Sometimes no ID exists - due to timing?
+            NSLog("Missing id")
+            return
+        }
         lblDate.text  = show.showDate!
         lblCity.text = show.location!
         lblBuilding.text = show.building!

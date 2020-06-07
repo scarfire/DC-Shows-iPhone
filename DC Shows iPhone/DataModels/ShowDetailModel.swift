@@ -66,6 +66,11 @@ class ShowDetailModel: NSObject {
     }
     
     func downloadSetList(id: String) {
+        if id == "" {
+            // Sometimes no ID exists - due to timing?
+            NSLog ("Missing ID")
+            return
+        }
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsetlist.php?show_id=\(id)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray

@@ -111,12 +111,12 @@
 		1C940CF12489D5A5003A320B /* Show Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1C940CF5248AE096003A320B /* VideosViewController.swift */,
-				1C940CF7248AE11F003A320B /* AddVideoViewController.swift */,
-				1C940CF9248AE136003A320B /* ShowEditViewController.swift */,
 				1C940D0D248C30BD003A320B /* ToursViewController.swift */,
 				1C940D34248C4BC7003A320B /* ShowsViewController.swift */,
 				1C940CF32489D618003A320B /* ShowViewController.swift */,
+				1C940CF9248AE136003A320B /* ShowEditViewController.swift */,
+				1C940CF5248AE096003A320B /* VideosViewController.swift */,
+				1C940CF7248AE11F003A320B /* AddVideoViewController.swift */,
 			);
 			path = "Show Controllers";
 			sourceTree = "<group>";
