@@ -25,10 +25,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipeLeft:"))
-//        recognizer.direction = .left
-//        self.view .addGestureRecognizer(recognizer)
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         showDetailModel.delegate  = self
@@ -70,7 +67,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     func detailsDownloaded(show: ShowDetailModel) {
         if show.id == 0 {
             // Sometimes no ID exists - due to timing?
-            NSLog("Missing id")
+            NSLog("Missing id when downloading show details")
             return
         }
         showDate = show.showDate!
