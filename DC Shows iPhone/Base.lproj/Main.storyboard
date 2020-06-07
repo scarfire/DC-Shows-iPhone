@@ -356,6 +356,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="vOC-8s-4xG" appends="YES" id="BNL-pB-VMD"/>
+                            <outletCollection property="gestureRecognizers" destination="4L4-v5-cEl" appends="YES" id="Ptc-zG-AcY"/>
                         </connections>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -369,9 +370,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="vOC-8s-4xG">
+                <swipeGestureRecognizer direction="left" id="vOC-8s-4xG" userLabel="Swipe Left Gesture Recognizer">
                     <connections>
                         <action selector="swipeLeft:" destination="BYZ-38-t0r" id="J9B-ht-QTb"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="4L4-v5-cEl" userLabel="Swipe Right Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeRight:" destination="BYZ-38-t0r" id="lu1-tH-GNL"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>

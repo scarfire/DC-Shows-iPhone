@@ -63,6 +63,10 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         showDetailModel.getNextShow(showDate: showDate!)
     }
     
+    @IBAction func swipeRight(_ sender: Any) {
+        showDetailModel.getPreviousShow(showDate: showDate!)
+    }
+    
     func detailsDownloaded(show: ShowDetailModel) {
         if show.id == 0 {
             // Sometimes no ID exists - due to timing?
