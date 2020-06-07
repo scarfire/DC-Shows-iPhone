@@ -104,15 +104,17 @@ class ShowDetailModel: NSObject {
     }
     
     fileprivate func AddSetTitle(set: String, setList: inout [SongModel]) {
-        let setTitle = SongModel()
-        setTitle.title = getSetName(set: set)
-        setList.append(setTitle)
+        let song = SongModel()
+        song.title = getSetName(set: set)
+        song.set = "T" // Title
+        setList.append(song)
     }
     
     fileprivate func AddBlankRow(_ setList: inout [SongModel]) {
-        let setTitle = SongModel()
-        setTitle.title = ""
-        setList.append(setTitle)
+        let song = SongModel()
+        song.title = ""
+        song.set = "B" // Blank
+        setList.append(song)
     }
     
 }

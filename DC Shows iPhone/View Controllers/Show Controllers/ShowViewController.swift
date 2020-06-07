@@ -72,12 +72,20 @@ extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
+        if setList[indexPath.row].set == "T" {
+            // Title row
+            cell.backgroundColor = UIColor.darkGray
+            cell.textLabel?.textColor = UIColor.white
+        }
+        else {
+            cell.backgroundColor = UIColor.white
+            cell.textLabel?.textColor = UIColor.black
+        }
         cell.textLabel?.text = setList[indexPath.row].title!
         return cell
     }
-    
 }
-                                                                                                                                                                                              
+
 extension ShowViewController {
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
