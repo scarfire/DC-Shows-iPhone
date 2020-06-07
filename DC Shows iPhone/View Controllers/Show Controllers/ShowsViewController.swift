@@ -10,6 +10,7 @@ import UIKit
 
 class ShowsViewController: UIViewController, ShowModelProtocol {
     
+    var searchStr: String? = ""
     var year: String?
     var shows: [ShowModel] = []
 
@@ -19,7 +20,14 @@ class ShowsViewController: UIViewController, ShowModelProtocol {
         super.viewDidLoad()
         let showModel = ShowModel()
         showModel.delegate = self
-        showModel.downloadItems(year: year!)
+        if searchStr != "" {
+            // Searching
+            showModel.search(searchStr: searchStr!)
+        }
+        else {
+            // Selected a tour
+            showModel.downloadItems(year: year!)
+        }
     }
     
     func itemsDownloaded(items: [ShowModel]) {

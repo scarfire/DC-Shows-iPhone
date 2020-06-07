@@ -12,6 +12,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
 
     var showID: String?
     var showDate: String?
+    var searchStr: String?
     var setList: [SongModel] = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,6 +30,9 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         showDetailModel.delegate  = self
+        if searchStr != nil {
+            return
+        }
         if showID != nil {
             // Coming from Shows
             showDetailModel.downloadSetList(id: showID!)

@@ -20,7 +20,35 @@ class ShowModel: NSObject {
 
     weak var delegate: ShowModelProtocol!
 
+    func search(searchStr: String) {
+        // Get shows where searched song exists
+        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsearchresults.php?search=\(searchStr)")
+        let data = try? Data(contentsOf: url!)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
+
+        var jsonElement = NSDictionary()
+        var shows = [ShowModel]()
+        for i in 0 ..< jsonResult.count {
+            jsonElement = jsonResult[i] as! NSDictionary
+            let show = ShowModel()
+            if let id = jsonElement["id"] as? Int,
+                let location = jsonElement["city_state_country"] as? String,
+                let showDate = jsonElement["showdate"] as? String,
+                let poster = jsonElement["poster"] as? String {
+                show.id = id
+                show.showDate = showDate
+                show.location = location
+                show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
+            }
+            shows.append(show)
+        }
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.delegate.itemsDownloaded(items: shows)
+        })
+    }
+
     func downloadItems(year: String) {
+        // Get shows for tour year
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshowsfortour.php?year=\(year)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
