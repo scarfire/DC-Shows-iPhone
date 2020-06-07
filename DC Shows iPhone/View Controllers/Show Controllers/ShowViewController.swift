@@ -8,18 +8,22 @@
 
 import UIKit
 
-class ShowViewController: UIViewController {
+class ShowViewController: UIViewController, ShowDetailsModelProtocol {
 
     var showID: String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        //showAlert(msg: showID!)
-//        let showModel = ShowModel()
-//        showModel.delegate = self
-//        showModel.downloadItems(year: year!)
+
+        let showDetailModel = ShowDetailModel()
+        showDetailModel.delegate  = self
+        showDetailModel.downloadDetails(id: showID!)
+        showDetailModel.downloadSetList(id: showID!)
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+    }
+
     @IBAction func edit(_ sender: Any) {
     }
 
@@ -33,6 +37,12 @@ class ShowViewController: UIViewController {
     }
     
     @IBAction func random(_ sender: Any) {
+    }
+    
+    func detailsDownloaded(item: ShowDetailModel) {
+    }
+    
+    func setListDownloaded(setList: [SongModel]) {
     }
     
 }
