@@ -204,7 +204,7 @@
                                 <rect key="frame" x="0.0" y="96" width="414" height="766"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="kXB-so-byt" userLabel="Top Stack View">
-                                        <rect key="frame" x="10" y="0.0" width="394" height="160"/>
+                                        <rect key="frame" x="20" y="0.0" width="374" height="160"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-LT-Zqw">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="160"/>
@@ -214,7 +214,7 @@
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="NFG-7R-IXs">
-                                                <rect key="frame" x="140" y="20" width="254" height="120"/>
+                                                <rect key="frame" x="140" y="20" width="234" height="120"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="bp8-7o-pW3" userLabel="DateCityVenueRating Stack View">
                                                         <rect key="frame" x="0.0" y="0.0" width="51" height="79.5"/>
@@ -335,9 +335,9 @@
                                     <constraint firstItem="SRz-7W-eOJ" firstAttribute="leading" secondItem="Qlu-xt-D28" secondAttribute="leading" constant="19.5" id="4Pk-X7-4aD"/>
                                     <constraint firstItem="kXB-so-byt" firstAttribute="top" secondItem="Qlu-xt-D28" secondAttribute="top" id="7Bd-se-ox8"/>
                                     <constraint firstAttribute="trailing" secondItem="SRz-7W-eOJ" secondAttribute="trailing" constant="19.5" id="Gei-SC-CON"/>
-                                    <constraint firstItem="kXB-so-byt" firstAttribute="leading" secondItem="Qlu-xt-D28" secondAttribute="leading" constant="10" id="axh-Bd-KEs"/>
+                                    <constraint firstItem="kXB-so-byt" firstAttribute="leading" secondItem="Qlu-xt-D28" secondAttribute="leading" constant="20" id="axh-Bd-KEs"/>
                                     <constraint firstAttribute="trailing" secondItem="DRG-gl-lnM" secondAttribute="trailing" constant="20" id="ctt-RC-YpS"/>
-                                    <constraint firstAttribute="trailing" secondItem="kXB-so-byt" secondAttribute="trailing" constant="10" id="fX9-ab-0WR"/>
+                                    <constraint firstAttribute="trailing" secondItem="kXB-so-byt" secondAttribute="trailing" constant="20" id="fX9-ab-0WR"/>
                                     <constraint firstAttribute="bottom" secondItem="SRz-7W-eOJ" secondAttribute="bottom" id="kOn-TN-FYJ"/>
                                     <constraint firstItem="SRz-7W-eOJ" firstAttribute="top" secondItem="DRG-gl-lnM" secondAttribute="bottom" constant="13" id="qw9-Hm-8Ax"/>
                                     <constraint firstItem="DRG-gl-lnM" firstAttribute="leading" secondItem="Qlu-xt-D28" secondAttribute="leading" constant="20" id="wUi-dd-Kjp"/>
