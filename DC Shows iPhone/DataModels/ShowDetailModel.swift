@@ -85,6 +85,7 @@ class ShowDetailModel: NSObject {
             }
             setList.append(song)
         }
+        AddNotesSection(&setList)
         DispatchQueue.main.async(execute: { () -> Void in
             self.delegate.setListDownloaded(setList: setList)
         })
@@ -98,6 +99,8 @@ class ShowDetailModel: NSObject {
             return "2nd Set"
         case "3":
             return "3rd Set"
+        case "Notes":
+            return "Notes"
         default:
             return "Encore"
         }
@@ -117,4 +120,16 @@ class ShowDetailModel: NSObject {
         setList.append(song)
     }
     
+    fileprivate func AddNotesSection(_ setList: inout [SongModel]) {
+        AddBlankRow(&setList)
+        AddSetTitle(set: "Notes", setList: &setList)
+        AddNotesTitle(&setList)
+    }
+
+    fileprivate func AddNotesTitle(_ setList: inout [SongModel]) {
+        let song = SongModel()
+        song.title = "This is where user notes would go"
+        song.set = "N"
+        setList.append(song)
+    }
 }
