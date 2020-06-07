@@ -28,7 +28,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         tableView.dataSource = self
         showDetailModel.delegate  = self
         showDetailModel.downloadSetList(id: showID!)
-    //    showDetailModel.downloadDetails(id: showID!)
+        showDetailModel.downloadDetails(id: showID!)
     }
 
     @IBAction func edit(_ sender: Any) {
@@ -57,27 +57,21 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     
     func setListDownloaded(setList: [SongModel]) {
         self.setList = setList
-        print("Reloading table")
         tableView.reloadData()
-        print("Table reloaded")
-        print("Table refreshed")
     }
 
 }
 
 extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("Checking Number of sections")
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Checking Number of rows")
         return setList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Adding row")
         let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
         cell.textLabel?.text = setList[indexPath.row].title!
         return cell
