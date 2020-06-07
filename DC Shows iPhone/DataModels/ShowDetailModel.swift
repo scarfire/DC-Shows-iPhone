@@ -20,7 +20,8 @@ class ShowDetailModel: NSObject {
     var showDate: String? = ""
     var poster: String? = ""
     var defaultAudio: String? = ""
-   
+    var previousSet: String = ""
+    
     weak var delegate: ShowDetailsModelProtocol!
  
     func downloadDetails(id: String) {
@@ -56,13 +57,31 @@ class ShowDetailModel: NSObject {
 
         var jsonElement = NSDictionary()
         var setList = [SongModel]()
+
+        // Loop through each song in set list
         for i in 0 ..< jsonResult.count {
             jsonElement = jsonResult[i] as! NSDictionary
+
+            // Create and populate song
             let song = SongModel()
-            if  let title = jsonElement["title"] as? String,
+            if let title = jsonElement["title"] as? String,
                 let set = jsonElement["set_number"] as? String {
                 song.title = title
                 song.set = set
+            }
+            
+            if previousSet != song.set! {
+                // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
+                switch song.set! {
+                    case "1":
+                        AddSetTitle(set: song.set!, setList: &setList)
+                    case "2", "3", "E":
+                        AddBlankRow(&setList)
+                        AddSetTitle(set: song.set!, setList: &setList)
+                    default:
+                        break
+                }
+                previousSet = song.set!
             }
             setList.append(song)
         }
@@ -70,4 +89,30 @@ class ShowDetailModel: NSObject {
             self.delegate.setListDownloaded(setList: setList)
         })
     }
+    
+    fileprivate func getSetName(set: String) -> String {
+        switch set {
+        case "1":
+            return "1st Set"
+        case "2":
+            return "2nd Set"
+        case "3":
+            return "3rd Set"
+        default:
+            return "Encore"
+        }
+    }
+    
+    fileprivate func AddSetTitle(set: String, setList: inout [SongModel]) {
+        let setTitle = SongModel()
+        setTitle.title = getSetName(set: set)
+        setList.append(setTitle)
+    }
+    
+    fileprivate func AddBlankRow(_ setList: inout [SongModel]) {
+        let setTitle = SongModel()
+        setTitle.title = ""
+        setList.append(setTitle)
+    }
+    
 }
