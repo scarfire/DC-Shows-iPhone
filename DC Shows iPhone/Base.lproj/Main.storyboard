@@ -20,11 +20,23 @@
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="yE5-om-0Gr"/>
-                                    <barButtonItem title="Photos" id="q0h-M8-RcG"/>
+                                    <barButtonItem title="Photos" id="q0h-M8-RcG">
+                                        <connections>
+                                            <action selector="photos:" destination="cGw-44-Hbx" id="dVB-dk-vF7"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="3ly-8Q-YJY"/>
-                                    <barButtonItem title="Search" id="DpJ-fD-FiR"/>
+                                    <barButtonItem title="Search" id="DpJ-fD-FiR">
+                                        <connections>
+                                            <action selector="search:" destination="cGw-44-Hbx" id="x1w-OG-L8x"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="kCR-a1-Fl9"/>
-                                    <barButtonItem title="Random" id="9o8-kJ-UHc"/>
+                                    <barButtonItem title="Random" id="9o8-kJ-UHc">
+                                        <connections>
+                                            <action selector="random:" destination="cGw-44-Hbx" id="oxx-Xt-b5O"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="tmf-3I-KMb"/>
                                 </items>
                             </toolbar>

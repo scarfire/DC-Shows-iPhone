@@ -22,7 +22,16 @@ class ToursViewController: UIViewController, TourModelProtocol {
             tourModel.downloadItems()
         }
 
-        func itemsDownloaded(items: [TourModel]) {
+    @IBAction func random(_ sender: Any) {
+    }
+    
+    @IBAction func search(_ sender: Any) {
+    }
+    
+    @IBAction func photos(_ sender: Any) {
+    }
+    
+    func itemsDownloaded(items: [TourModel]) {
                 tours = items
                 collectionView.reloadData()
         }
