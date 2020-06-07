@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ShowDetailsModelProtocol: class {
-    func detailsDownloaded(item: ShowDetailModel)
+    func detailsDownloaded(show: ShowDetailModel)
     func setListDownloaded(setList: [SongModel])
 }
 
@@ -45,7 +45,7 @@ class ShowDetailModel: NSObject {
             show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
         }
         DispatchQueue.main.async(execute: { () -> Void in
-            self.delegate.detailsDownloaded(item: show)
+            self.delegate.detailsDownloaded(show: show)
         })
     }
     
