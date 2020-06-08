@@ -47,6 +47,10 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
 
     @IBAction func edit(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "ShowEdit") as! ShowEditViewController
+        vc.showID = showID
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     @IBAction func photos(_ sender: Any) {
@@ -74,11 +78,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     func detailsDownloaded(show: ShowDetailModel) {
-        if show.id == 0 {
-            // Sometimes no ID exists - due to timing?
-            NSLog("Missing id when downloading show details")
-            return
-        }
+        showID = show.id
         showDate = show.showDate!
         defaultAudio = show.defaultAudio!
         if defaultAudio == "" {

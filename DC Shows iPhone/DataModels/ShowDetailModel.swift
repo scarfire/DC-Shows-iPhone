@@ -14,7 +14,7 @@ protocol ShowDetailsModelProtocol: class {
 }
 
 class ShowDetailModel: NSObject {
-    var id: Int = 0
+    var id: String?
     var location: String? = ""
     var building: String? = ""
     var showDate: String? = ""
@@ -32,10 +32,10 @@ class ShowDetailModel: NSObject {
         var jsonElement = NSDictionary()
         jsonElement = jsonResult[0] as! NSDictionary
         if let id = jsonElement["id"] as? Int {
-            self.id = id
+            self.id = "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
-                self.downloadDetails(id: "\(self.id)")
-                self.downloadSetList(id: "\(self.id)")
+                self.downloadDetails(id: self.id!)
+                self.downloadSetList(id: self.id!)
             })
         }
     }
@@ -47,10 +47,10 @@ class ShowDetailModel: NSObject {
         var jsonElement = NSDictionary()
         jsonElement = jsonResult[0] as! NSDictionary
         if let id = jsonElement["id"] as? Int {
-            self.id = id
+            self.id =  "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
-                self.downloadDetails(id: "\(self.id)")
-                self.downloadSetList(id: "\(self.id)")
+                self.downloadDetails(id: "\(String(describing: self.id))")
+                self.downloadSetList(id: "\(String(describing: self.id))")
             })
         }
     }
@@ -62,10 +62,10 @@ class ShowDetailModel: NSObject {
         var jsonElement = NSDictionary()
         jsonElement = jsonResult[0] as! NSDictionary
         if let id = jsonElement["id"] as? Int {
-            self.id = id
+            self.id = "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
-                self.downloadDetails(id: "\(self.id)")
-                self.downloadSetList(id: "\(self.id)")
+                self.downloadDetails(id: self.id!)
+                self.downloadSetList(id: self.id!)
             })
         }
     }
@@ -85,7 +85,7 @@ class ShowDetailModel: NSObject {
             let showDatePrint = jsonElement["showdate"] as? String,
             let audio = jsonElement["audio"] as? String,
             let poster = jsonElement["poster"] as? String {
-            show.id = id
+            show.id = "\(id)"
             show.showDate = showDate
             show.showDatePrint = showDatePrint
             show.location = location

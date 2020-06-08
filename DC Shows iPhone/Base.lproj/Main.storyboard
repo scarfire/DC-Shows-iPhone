@@ -394,7 +394,7 @@
         <!--Show Edit-->
         <scene sceneID="17h-X0-0v7">
             <objects>
-                <viewController title="Show Edit" id="eUH-37-J14" customClass="ShowEditViewController" customModule="DC_Shows_iPhone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowEdit" title="Show Edit" id="eUH-37-J14" customClass="ShowEditViewController" customModule="DC_Shows_iPhone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gng-wN-v2S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -10,10 +10,13 @@ import UIKit
 import CoreData
 
 class ShowEditViewController: UIViewController {
-
+    
+    var showID: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        showAlert(msg: showID!)
         // Do any additional setup after loading the view.
     }
     
