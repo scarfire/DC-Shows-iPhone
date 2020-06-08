@@ -11,6 +11,12 @@ import CoreData
 
 class ShowEditViewController: UIViewController {
     
+    @IBOutlet weak var lblRating: UILabel!
+    @IBOutlet weak var stepper: UIStepper!
+    @IBOutlet weak var txtNotes: UITextView!
+    @IBOutlet weak var txtAudio: UITextField!
+    @IBOutlet weak var switchAttended: UISwitch!
+    
     var showID: String?
     
     override func viewDidLoad() {

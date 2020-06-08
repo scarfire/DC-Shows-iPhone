@@ -508,6 +508,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SQO-ys-I4H"/>
                     </view>
+                    <connections>
+                        <outlet property="lblRating" destination="kfW-C3-KnS" id="0sh-yY-ahy"/>
+                        <outlet property="stepper" destination="S08-Rz-6y1" id="DEe-tN-xBx"/>
+                        <outlet property="switchAttended" destination="hzm-OD-r0u" id="Uw7-iL-355"/>
+                        <outlet property="txtAudio" destination="faq-xr-YVy" id="hPt-hm-8gh"/>
+                        <outlet property="txtNotes" destination="5ab-ie-TBt" id="JNy-g6-0bV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ew4-G8-WyV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
