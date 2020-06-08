@@ -21,9 +21,28 @@ class ShowEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationController?.setNavigationBarHidden(true, animated: false)
-        showAlert(msg: showID!)
-        // Do any additional setup after loading the view.
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      //1
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+      }
+      let managedContext = appDelegate.persistentContainer.viewContext
+      
+      //2
+      let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
+      
+      //3
+      do {
+        var show = try managedContext.fetch(fetchRequest)
+      }
+      catch let error as NSError {
+        print("Could not fetch. \(error), \(error.userInfo)")
+      }
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -31,9 +50,40 @@ class ShowEditViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: Any) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+           return
+        }
+         
+         // 1
+         let managedContext = appDelegate.persistentContainer.viewContext
+         
+         // 2
+         let entity = NSEntityDescription.entity(forEntityName: "ShowDetails", in: managedContext)!
+         let show = NSManagedObject(entity: entity, insertInto: managedContext)
+         
+         // 3
+        show.setValue(txtAudio.text, forKeyPath: "audio")
+        show.setValue(txtNotes.text, forKeyPath: "notes")
+        show.setValue(0, forKeyPath: "rating")
+        if switchAttended.isOn {
+            show.setValue("true", forKeyPath: "attended")
+        }
+        else {
+            show.setValue("false", forKeyPath: "attended")
+        }
+
+         // 4
+         do {
+           try managedContext.save()
+         }
+         catch let error as NSError {
+           print("Could not save. \(error), \(error.userInfo)")
+         }
         navigationController?.popViewController(animated: true)
     }
     
+
+
     /*
      
     func updateDatabase(_ request:URLRequest) {

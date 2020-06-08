@@ -399,7 +399,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3n-0X-RpQ">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3n-0X-RpQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Edit Show" id="qAS-tu-kNu">
@@ -501,6 +501,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="SQO-ys-I4H" firstAttribute="trailing" secondItem="enj-wM-W6s" secondAttribute="trailing" constant="20" id="1gZ-ds-AHj"/>
+                            <constraint firstItem="K3n-0X-RpQ" firstAttribute="leading" secondItem="SQO-ys-I4H" secondAttribute="leading" id="Eie-gp-jOh"/>
+                            <constraint firstItem="SQO-ys-I4H" firstAttribute="trailing" secondItem="K3n-0X-RpQ" secondAttribute="trailing" id="HbP-xa-XRl"/>
                             <constraint firstItem="K3n-0X-RpQ" firstAttribute="top" secondItem="SQO-ys-I4H" secondAttribute="top" id="OFZ-0x-zNH"/>
                             <constraint firstItem="K3n-0X-RpQ" firstAttribute="centerX" secondItem="SQO-ys-I4H" secondAttribute="centerX" id="esX-Iv-FWC"/>
                             <constraint firstItem="enj-wM-W6s" firstAttribute="leading" secondItem="SQO-ys-I4H" secondAttribute="leading" constant="20" id="nV9-J5-c7P"/>

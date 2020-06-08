@@ -6,10 +6,10 @@
         <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
     </entity>
     <entity name="ShowDetails" representedClassName="ShowDetails" syncable="YES" codeGenerationType="class">
-        <attribute name="attended" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="attended" attributeType="String"/>
         <attribute name="audio" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
-        <attribute name="rating" optional="YES" attributeType="Integer 16" minValueString="1" maxValueString="10" usesScalarValueType="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 16" minValueString="1" maxValueString="10" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
     </entity>
     <entity name="Video" representedClassName="Video" syncable="YES" codeGenerationType="class">
@@ -18,7 +18,7 @@
         <attribute name="url" attributeType="String"/>
     </entity>
     <elements>
-        <element name="ShowDetails" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="ShowDetails" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="Video" positionX="-54" positionY="36" width="128" height="28"/>
         <element name="Photo" positionX="-36" positionY="27" width="128" height="28"/>
     </elements>
