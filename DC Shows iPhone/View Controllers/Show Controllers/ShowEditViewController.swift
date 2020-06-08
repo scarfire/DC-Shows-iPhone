@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ShowEditViewController: UIViewController {
 
@@ -14,6 +15,14 @@ class ShowEditViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func save(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
     /*
