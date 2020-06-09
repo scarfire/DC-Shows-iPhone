@@ -213,12 +213,16 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="kXB-so-byt" userLabel="Top Stack View">
                                         <rect key="frame" x="20" y="0.0" width="374" height="160"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-LT-Zqw">
+                                            <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-LT-Zqw">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="160"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="160" id="DQV-xI-Isr"/>
                                                     <constraint firstAttribute="width" constant="125" id="sO7-65-3WE"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="5ia-bT-PZc" appends="YES" id="TM5-zH-Dbc"/>
+                                                </connections>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="NFG-7R-IXs">
                                                 <rect key="frame" x="140" y="20" width="234" height="120"/>
@@ -388,6 +392,11 @@
                         <action selector="swipeRight:" destination="BYZ-38-t0r" id="lu1-tH-GNL"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer id="5ia-bT-PZc">
+                    <connections>
+                        <action selector="posterTapped:" destination="BYZ-38-t0r" id="cyV-ro-ssy"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2640.579710144928" y="-636.16071428571422"/>
         </scene>

@@ -52,7 +52,10 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         vc.showID = showID
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    @IBAction func posterTapped(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
     @IBAction func photos(_ sender: Any) {
     }
     
