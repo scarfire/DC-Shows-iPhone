@@ -18,6 +18,8 @@ class ShowEditViewController: UIViewController {
     @IBOutlet weak var switchAttended: UISwitch!
     
     var showID: String?
+    var shows: [NSManagedObject] = []
+    var show = NSManagedObject()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +28,49 @@ class ShowEditViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-      
+        txtNotes.text = ""
       //1
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
       }
       let managedContext = appDelegate.persistentContainer.viewContext
+    let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
       
-      //2
-      let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
-      
-      //3
       do {
-        var show = try managedContext.fetch(fetchRequest)
+        let intShowID = Int16(showID!)
+        showDetailsFetch.predicate = NSPredicate(format: "showID == %i", intShowID!)
+        shows = try managedContext.fetch(showDetailsFetch)
+        if shows.count > 0 {
+            // Object exists - grab 1st in case of multiples
+            show = shows.first!
+            txtNotes.text = show.value(forKeyPath: "notes") as? String
+            txtAudio.text = show.value(forKeyPath: "audio") as? String
+            let rating = show.value(forKeyPath: "rating") as? Int16
+            if rating != nil {
+                lblRating.text =  "\(String(describing: rating))"
+            }
+            let attended = show.value(forKeyPath: "attended") as? String
+            if attended == "true" {
+                switchAttended.isOn = true
+            }
+            else {
+                switchAttended.isOn = false
+            }
+        }
+        else {
+            // Object doesn't exist yet - create it
+            let entity = NSEntityDescription.entity(forEntityName: "ShowDetails", in: managedContext)!
+            show = NSManagedObject(entity: entity, insertInto: managedContext)
+            show.setValue(Int16(showID!), forKey: "showID")
+            show.setValue("false", forKeyPath: "attended")
+            switchAttended.isOn = false
+            do {
+              try managedContext.save()
+            }
+            catch let error as NSError {
+              print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
       }
       catch let error as NSError {
         print("Could not fetch. \(error), \(error.userInfo)")
@@ -54,17 +86,12 @@ class ShowEditViewController: UIViewController {
            return
         }
          
-         // 1
          let managedContext = appDelegate.persistentContainer.viewContext
          
-         // 2
-         let entity = NSEntityDescription.entity(forEntityName: "ShowDetails", in: managedContext)!
-         let show = NSManagedObject(entity: entity, insertInto: managedContext)
-         
-         // 3
+        show.setValue(Int16(showID!), forKey: "showID")
         show.setValue(txtAudio.text, forKeyPath: "audio")
         show.setValue(txtNotes.text, forKeyPath: "notes")
-        show.setValue(0, forKeyPath: "rating")
+        show.setValue(1, forKeyPath: "rating")
         if switchAttended.isOn {
             show.setValue("true", forKeyPath: "attended")
         }
@@ -81,45 +108,5 @@ class ShowEditViewController: UIViewController {
          }
         navigationController?.popViewController(animated: true)
     }
-    
-
-
-    /*
-     
-    func updateDatabase(_ request:URLRequest) {
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            
-            if (error != nil) {
-                print("error=" + String(describing: error))
-                return
-            }
-            
-            // print("response = \(response)")
-            
-            let responseString = String(data: data!, encoding: String.Encoding.utf8)
-            print("responseString = " + String(describing: responseString))
-            
-            DispatchQueue.main.async {
-                // Close window on main thread since it's a UI action
-                //if let delegate = self.delegate {
-                self.get()
-                //}
-            }
-            
-        })
-        task.resume()
-    }
-     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+   
 }

@@ -444,7 +444,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="John Mayer played Jerry Garcia's &quot;Wolf&quot; guitar the whole show." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5ab-ie-TBt">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="sample notes" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5ab-ie-TBt">
                                         <rect key="frame" x="0.0" y="49" width="374" height="424"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
