@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 protocol ShowDetailsModelProtocol: class {
     func detailsDownloaded(show: ShowDetailModel)
     func setListDownloaded(setList: [SongModel])
+    func notesDownloaded(notes: String)
 }
 
 class ShowDetailModel: NSObject {
@@ -22,9 +24,37 @@ class ShowDetailModel: NSObject {
     var poster: String? = ""
     var defaultAudio: String? = ""
     var previousSet: String = ""
+    var notes: String? = ""
     
     weak var delegate: ShowDetailsModelProtocol!
  
+    func getNotes(id: String) {
+        // Load notes from Core Data
+        do {
+            let intShowID = Int16(id)
+            notes = ""
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
+            showDetailsFetch.predicate = NSPredicate(format: "showID == %i", intShowID!)
+            let shows = try managedContext.fetch(showDetailsFetch)
+            if shows.count > 0 {
+                // Object exists - grab 1st in case of multiples
+                let show = shows.first!
+                notes = show.value(forKeyPath: "notes") as? String
+                notes = notes ?? ""
+            }
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.delegate.notesDownloaded(notes: self.notes!)
+            })
+        }
+        catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     func getPreviousShow(showDate: String) {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getpreviousshow.php?show_date=\(showDate)")
         let data = try? Data(contentsOf: url!)
@@ -34,6 +64,7 @@ class ShowDetailModel: NSObject {
         if let id = jsonElement["id"] as? Int {
             self.id = "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
+                self.getNotes(id: self.id!)
                 self.downloadDetails(id: self.id!)
                 self.downloadSetList(id: self.id!)
             })
@@ -49,6 +80,7 @@ class ShowDetailModel: NSObject {
         if let id = jsonElement["id"] as? Int {
             self.id =  "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
+                self.getNotes(id: self.id!)
                 self.downloadDetails(id: "\(String(describing: self.id))")
                 self.downloadSetList(id: "\(String(describing: self.id))")
             })
@@ -64,6 +96,7 @@ class ShowDetailModel: NSObject {
         if let id = jsonElement["id"] as? Int {
             self.id = "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
+                self.getNotes(id: self.id!)
                 self.downloadDetails(id: self.id!)
                 self.downloadSetList(id: self.id!)
             })
@@ -176,12 +209,12 @@ class ShowDetailModel: NSObject {
     fileprivate func AddNotesSection(_ setList: inout [SongModel]) {
         AddBlankRow(&setList)
         AddSetTitle(set: "Notes", setList: &setList)
-        AddNotesTitle(&setList)
+        AddNotes(&setList)
     }
 
-    fileprivate func AddNotesTitle(_ setList: inout [SongModel]) {
+    fileprivate func AddNotes(_ setList: inout [SongModel]) {
         let song = SongModel()
-        song.title = "This is where user notes would go"
+        song.title = notes!
         song.set = "N"
         setList.append(song)
     }

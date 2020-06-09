@@ -35,15 +35,23 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         if searchStr != nil {
             return
         }
-        if showID != nil {
-            // Coming from Shows
-            showDetailModel.downloadSetList(id: showID!)
-            showDetailModel.downloadDetails(id: showID!)
-        }
-        else {
+        if showID == nil {
             // Random - need random ID first
             showDetailModel.getRandomShowID()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if showID != nil {
+            // Coming from Shows
+            loadShowDetails()
+        }
+    }
+
+    func loadShowDetails() {
+        showDetailModel.getNotes(id: showID!)
+        showDetailModel.downloadSetList(id: showID!)
+        showDetailModel.downloadDetails(id: showID!)
     }
 
     @IBAction func edit(_ sender: Any) {
@@ -104,6 +112,12 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         let topRow = IndexPath(row: 0, section: 0)
         tableView.scrollToRow(at: topRow, at: .top, animated: true)
     }
+    
+    func notesDownloaded(notes: String) {
+       // showAlert(msg: "Notes downloaded")
+        
+    }
+    
 }
 
 extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
