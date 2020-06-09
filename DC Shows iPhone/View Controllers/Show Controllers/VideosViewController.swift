@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import CoreData
 
 class VideosViewController: UIViewController {
+    var showID: String?
+    var videos: [NSManagedObject] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     // Delete a row from video list
@@ -39,7 +44,7 @@ class VideosViewController: UIViewController {
 
 extension VideosViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
