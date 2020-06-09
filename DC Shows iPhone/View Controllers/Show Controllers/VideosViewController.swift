@@ -15,17 +15,7 @@ class VideosViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-/*
-     Get MySQL data from server
-     
-     func get() {
-         let url = URL(string: "https://toddlstevens.com/apps/walking/getallevents.php")
-         let data = try? Data(contentsOf: url!)
-         values = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-         tableView.reloadData()
-       }
-     
-     */
+
     // Delete a row from video list
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //          if editingStyle == .delete {
@@ -42,15 +32,19 @@ class VideosViewController: UIViewController {
 //           } else if editingStyle == .insert {
 //               // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
 //           }
+ 
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+
+extension VideosViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
+    
 }
