@@ -47,7 +47,7 @@ class ShowEditViewController: UIViewController {
             txtAudio.text = show.value(forKeyPath: "audio") as? String
             let rating = show.value(forKeyPath: "rating") as? Int16
             if rating != nil {
-                lblRating.text =  "\(rating)"
+                lblRating.text =  "\(rating!)"
                 stepper.value = Double(rating!)
             }
             let attended = show.value(forKeyPath: "attended") as? String
@@ -66,7 +66,7 @@ class ShowEditViewController: UIViewController {
             show.setValue("false", forKeyPath: "attended")
             show.setValue(0, forKeyPath: "rating")
             switchAttended.isOn = false
-            stepper.value = 1.0
+            stepper.value = 0.0
             do {
               try managedContext.save()
             }
@@ -81,7 +81,7 @@ class ShowEditViewController: UIViewController {
     }
     
     @IBAction func ratingChanged(_ sender: Any) {
-        lblRating.text = String(Int(stepper.value))
+        lblRating.text = "\(Int(stepper!.value))"
     }
     
     @IBAction func cancel(_ sender: Any) {
