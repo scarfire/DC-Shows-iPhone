@@ -80,6 +80,10 @@ class ShowEditViewController: UIViewController {
       }
     }
     
+    @IBAction func ratingChanged(_ sender: Any) {
+        lblRating.text = String(Int(stepper.value))
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -112,4 +116,5 @@ class ShowEditViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
    
+    
 }

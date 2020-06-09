@@ -452,10 +452,10 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="l7a-f5-Bhl">
-                                        <rect key="frame" x="0.0" y="491" width="239.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="491" width="199.5" height="32"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="fqj-Mj-a7q">
-                                                <rect key="frame" x="0.0" y="0.0" width="123.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="32"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaB-Td-YMh">
                                                         <rect key="frame" x="0.0" y="0.0" width="59.5" height="32"/>
@@ -463,8 +463,8 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfW-C3-KnS">
-                                                        <rect key="frame" x="73.5" y="0.0" width="50" height="32"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfW-C3-KnS">
+                                                        <rect key="frame" x="73.5" y="0.0" width="10" height="32"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -472,7 +472,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="S08-Rz-6y1">
-                                                <rect key="frame" x="145.5" y="0.0" width="94" height="32"/>
+                                                <rect key="frame" x="105.5" y="0.0" width="94" height="32"/>
+                                                <connections>
+                                                    <action selector="ratingChanged:" destination="eUH-37-J14" eventType="valueChanged" id="ozZ-cp-tYN"/>
+                                                </connections>
                                             </stepper>
                                         </subviews>
                                     </stackView>
