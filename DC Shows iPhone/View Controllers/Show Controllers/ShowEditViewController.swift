@@ -47,7 +47,8 @@ class ShowEditViewController: UIViewController {
             txtAudio.text = show.value(forKeyPath: "audio") as? String
             let rating = show.value(forKeyPath: "rating") as? Int16
             if rating != nil {
-                lblRating.text =  "\(String(describing: rating))"
+                lblRating.text =  "\(rating)"
+                stepper.value = Double(rating!)
             }
             let attended = show.value(forKeyPath: "attended") as? String
             if attended == "true" {
@@ -63,7 +64,9 @@ class ShowEditViewController: UIViewController {
             show = NSManagedObject(entity: entity, insertInto: managedContext)
             show.setValue(Int16(showID!), forKey: "showID")
             show.setValue("false", forKeyPath: "attended")
+            show.setValue(0, forKeyPath: "rating")
             switchAttended.isOn = false
+            stepper.value = 1.0
             do {
               try managedContext.save()
             }
@@ -91,7 +94,7 @@ class ShowEditViewController: UIViewController {
         show.setValue(Int16(showID!), forKey: "showID")
         show.setValue(txtAudio.text, forKeyPath: "audio")
         show.setValue(txtNotes.text, forKeyPath: "notes")
-        show.setValue(1, forKeyPath: "rating")
+        show.setValue(Int16(stepper.value), forKeyPath: "rating")  
         if switchAttended.isOn {
             show.setValue("true", forKeyPath: "attended")
         }
