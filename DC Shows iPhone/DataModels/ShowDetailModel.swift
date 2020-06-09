@@ -12,7 +12,7 @@ import CoreData
 protocol ShowDetailsModelProtocol: class {
     func detailsDownloaded(show: ShowDetailModel)
     func setListDownloaded(setList: [SongModel])
-    func notesDownloaded(notes: String)
+//    func notesDownloaded(notes: String)
 }
 
 class ShowDetailModel: NSObject {
@@ -46,9 +46,9 @@ class ShowDetailModel: NSObject {
                 notes = show.value(forKeyPath: "notes") as? String
                 notes = notes ?? ""
             }
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.delegate.notesDownloaded(notes: self.notes!)
-            })
+//            DispatchQueue.main.async(execute: { () -> Void in
+//                self.delegate.notesDownloaded(notes: self.notes!)
+//            })
         }
         catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
@@ -104,6 +104,12 @@ class ShowDetailModel: NSObject {
     }
     
     func downloadDetails(id: String) {
+        if id == "" {
+            // Sometimes no ID exists - due to timing?
+            NSLog ("Missing ID")
+            return
+        }
+        self.id = id
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshow.php?show_id=\(id)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
@@ -124,6 +130,7 @@ class ShowDetailModel: NSObject {
             show.location = location
             show.building = building
             show.defaultAudio = audio
+            show.notes = notes!
             show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
         }
         DispatchQueue.main.async(execute: { () -> Void in
@@ -137,6 +144,7 @@ class ShowDetailModel: NSObject {
             NSLog ("Missing ID")
             return
         }
+        self.id = id
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsetlist.php?show_id=\(id)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray

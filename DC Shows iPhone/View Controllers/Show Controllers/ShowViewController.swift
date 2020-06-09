@@ -101,6 +101,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         lblDate.text  = show.showDatePrint!
         lblCity.text = show.location!
         lblBuilding.text = show.building!
+        
         lblRating.text = "" // populate later from Core Data if exists
         let url = URL(string: show.poster!)
         downloadImage(from: url!)
@@ -139,6 +140,10 @@ extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             cell.backgroundColor = UIColor.white
             cell.textLabel?.textColor = UIColor.black
+            if setList[indexPath.row].set == "N" {
+                // Notes cell - needs to be bigger than one line
+                cell.textLabel?.numberOfLines = 20
+            }
         }
         cell.textLabel?.text = setList[indexPath.row].title!
         return cell

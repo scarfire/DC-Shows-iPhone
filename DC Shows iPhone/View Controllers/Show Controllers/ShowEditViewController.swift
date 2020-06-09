@@ -34,7 +34,7 @@ class ShowEditViewController: UIViewController {
           return
       }
       let managedContext = appDelegate.persistentContainer.viewContext
-    let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
+      let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
       
       do {
         let intShowID = Int16(showID!)
