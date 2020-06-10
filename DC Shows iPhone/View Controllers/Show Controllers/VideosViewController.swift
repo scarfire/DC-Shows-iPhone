@@ -11,14 +11,6 @@ import CoreData
 
 class VideosViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-   
-    @IBAction func back(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func add(_ sender: Any) {
-        
-    }
     
     var showID: String?
     var videos: [NSManagedObject] = []
@@ -47,7 +39,19 @@ class VideosViewController: UIViewController {
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
+        tableView.reloadData()
     }
+    
+     @IBAction func back(_ sender: Any) {
+         navigationController?.popViewController(animated: true)
+     }
+     
+     @IBAction func add(_ sender: Any) {
+         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+         let vc = storyboard.instantiateViewController(identifier: "AddVideo") as! AddVideoViewController
+         vc.showID = showID
+         navigationController?.pushViewController(vc, animated: true)
+     }
     
     // Delete a row from video list
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -80,13 +84,13 @@ extension VideosViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let video = videos[indexPath.row]
-//        let url = video.value(forKeyPath: "url") as? String
-//        if let url = URL(string: url!) {
-//            UIApplication.shared.open(url)
-//        }
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let video = videos[indexPath.row]
+        let url = video.value(forKeyPath: "url") as? String
+        if let url = URL(string: url!) {
+            UIApplication.shared.open(url)
+        }
+    }
     
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
