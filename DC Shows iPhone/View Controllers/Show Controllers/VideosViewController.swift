@@ -14,7 +14,7 @@ class VideosViewController: UIViewController {
     
     var showID: String?
     var videos: [NSManagedObject] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -92,9 +92,25 @@ extension VideosViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//           // let video = videos[indexPath.row]
-//        }
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            do {
+                let video = videos[indexPath.row]
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                    return
+                }
+                let managedContext = appDelegate.persistentContainer.viewContext
+                // Delete video from Managed Context
+                managedContext.delete(video)
+                // Delete video from array
+                videos.remove(at: indexPath.row)
+                // Delete video from table view
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                try managedContext.save()
+             }
+             catch let error as NSError {
+                print("Could not delete video. \(error), \(error.userInfo)")
+             }
+        }
+    }
 }
