@@ -105,7 +105,6 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         lblDate.text  = show.showDatePrint!
         lblCity.text = show.location!
         lblBuilding.text = show.building!
-        
         lblRating.text = "" // populate later from Core Data if exists
         let url = URL(string: show.poster!)
         downloadImage(from: url!)
@@ -116,11 +115,6 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         tableView.reloadData()
         let topRow = IndexPath(row: 0, section: 0)
         tableView.scrollToRow(at: topRow, at: .top, animated: true)
-    }
-    
-    func notesDownloaded(notes: String) {
-       // showAlert(msg: "Notes downloaded")
-        
     }
     
     func sendMessage(msg: String)

@@ -13,7 +13,6 @@ protocol ShowDetailsModelProtocol: class {
     func detailsDownloaded(show: ShowDetailModel)
     func setListDownloaded(setList: [SongModel])
     func sendMessage(msg: String)
-//    func notesDownloaded(notes: String)
 }
 
 class ShowDetailModel: NSObject {
@@ -47,9 +46,6 @@ class ShowDetailModel: NSObject {
                 notes = show.value(forKeyPath: "notes") as? String
                 notes = notes ?? ""
             }
-//            DispatchQueue.main.async(execute: { () -> Void in
-//                self.delegate.notesDownloaded(notes: self.notes!)
-//            })
         }
         catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
