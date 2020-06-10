@@ -42,6 +42,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if showID != nil {
             // Coming from Shows
             loadShowDetails()
@@ -68,6 +69,10 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     @IBAction func videos(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "Videos") as! VideosViewController
+        vc.showID = showID
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func audio(_ sender: Any) {

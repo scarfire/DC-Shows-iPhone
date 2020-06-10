@@ -29,7 +29,6 @@ class ShowEditViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
         txtNotes.text = ""
-      //1
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
       }

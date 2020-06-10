@@ -10,17 +10,37 @@ import UIKit
 import CoreData
 
 class VideosViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    
     var showID: String?
     var videos: [NSManagedObject] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
 
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "Video")
+
+        do {
+          let intShowID = Int16(showID!)
+          showDetailsFetch.predicate = NSPredicate(format: "showID == %i", intShowID!)
+          videos = try managedContext.fetch(showDetailsFetch)
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     // Delete a row from video list
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //          if editingStyle == .delete {
@@ -37,19 +57,32 @@ class VideosViewController: UIViewController {
 //           } else if editingStyle == .insert {
 //               // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
 //           }
- 
-    
 
 }
 
 extension VideosViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        return videos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath)
+        let video = videos[indexPath.row]
+        cell.textLabel?.text = video.value(forKeyPath: "title") as? String
+        return cell
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let video = videos[indexPath.row]
+//        let url = video.value(forKeyPath: "url") as? String
+//        if let url = URL(string: url!) {
+//            UIApplication.shared.open(url)
+//        }
+//    }
     
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//           // let video = videos[indexPath.row]
+//        }
+//    }
 }
