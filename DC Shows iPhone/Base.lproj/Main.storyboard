@@ -412,8 +412,16 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Videos" id="tvj-y3-X0J">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="OXc-R7-apw"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cuo-xu-wfk"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="OXc-R7-apw">
+                                            <connections>
+                                                <action selector="back:" destination="GOk-pX-fTZ" id="2Y7-3r-2mR"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cuo-xu-wfk">
+                                            <connections>
+                                                <action selector="add:" destination="GOk-pX-fTZ" id="Qa6-70-5Yf"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

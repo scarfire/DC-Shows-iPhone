@@ -11,6 +11,14 @@ import CoreData
 
 class VideosViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+   
+    @IBAction func back(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func add(_ sender: Any) {
+        
+    }
     
     var showID: String?
     var videos: [NSManagedObject] = []
