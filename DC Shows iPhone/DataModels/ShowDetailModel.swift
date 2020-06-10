@@ -12,6 +12,7 @@ import CoreData
 protocol ShowDetailsModelProtocol: class {
     func detailsDownloaded(show: ShowDetailModel)
     func setListDownloaded(setList: [SongModel])
+    func sendMessage(msg: String)
 //    func notesDownloaded(notes: String)
 }
 
@@ -28,10 +29,10 @@ class ShowDetailModel: NSObject {
     
     weak var delegate: ShowDetailsModelProtocol!
  
-    func getNotes(id: String) {
+    func getNotes() {
         // Load notes from Core Data
         do {
-            let intShowID = Int16(id)
+            let intShowID = Int16(id!)
             notes = ""
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -55,35 +56,34 @@ class ShowDetailModel: NSObject {
         }
     }
     
-    func getPreviousShow(showDate: String) {
-        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getpreviousshow.php?show_date=\(showDate)")
+    func getAdjacentShow(showDate: String, showType: String) {
+        var url: URL?
+        var alert: String?
+        if showType == "Next" {
+            // Next show
+            url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getnextshow.php?show_date=\(showDate)")
+            alert = "This is the last show"
+        }
+        else {
+            // Previous show
+            url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getpreviousshow.php?show_date=\(showDate)")
+            alert = "This is the first show"
+        }
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-        var jsonElement = NSDictionary()
-        jsonElement = jsonResult[0] as! NSDictionary
-        if let id = jsonElement["id"] as? Int {
-            self.id = "\(id)"
+        if jsonResult.count > 0 {
+            // Next show found
+            let jsonElement = jsonResult[0] as! NSDictionary
+            let id = jsonElement["id"] as? Int
+            self.id =  "\(id!)"
             DispatchQueue.main.async(execute: { () -> Void in
-                self.getNotes(id: self.id!)
-                self.downloadDetails(id: self.id!)
-                self.downloadSetList(id: self.id!)
+                self.getNotes()
+                self.downloadDetails()
+                self.downloadSetList()
             })
         }
-    }
-
-    func getNextShow(showDate: String) {
-        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getnextshow.php?show_date=\(showDate)")
-        let data = try? Data(contentsOf: url!)
-        let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-        var jsonElement = NSDictionary()
-        jsonElement = jsonResult[0] as! NSDictionary
-        if let id = jsonElement["id"] as? Int {
-            self.id =  "\(id)"
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.getNotes(id: self.id!)
-                self.downloadDetails(id: "\(String(describing: self.id))")
-                self.downloadSetList(id: "\(String(describing: self.id))")
-            })
+        else {
+            self.delegate?.sendMessage(msg: alert!)
         }
     }
 
@@ -96,21 +96,15 @@ class ShowDetailModel: NSObject {
         if let id = jsonElement["id"] as? Int {
             self.id = "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
-                self.getNotes(id: self.id!)
-                self.downloadDetails(id: self.id!)
-                self.downloadSetList(id: self.id!)
+                self.getNotes()
+                self.downloadDetails()
+                self.downloadSetList()
             })
         }
     }
     
-    func downloadDetails(id: String) {
-        if id == "" {
-            // Sometimes no ID exists - due to timing?
-            NSLog ("Missing ID")
-            return
-        }
-        self.id = id
-        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshow.php?show_id=\(id)")
+    func downloadDetails() {
+        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshow.php?show_id=\(id!)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
 
@@ -138,14 +132,8 @@ class ShowDetailModel: NSObject {
         })
     }
     
-    func downloadSetList(id: String) {
-        if id == "" {
-            // Sometimes no ID exists - due to timing?
-            NSLog ("Missing ID")
-            return
-        }
-        self.id = id
-        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsetlist.php?show_id=\(id)")
+    func downloadSetList() {
+        let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsetlist.php?show_id=\(id!)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
 

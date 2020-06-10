@@ -33,6 +33,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         tableView.dataSource = self
         showDetailModel.delegate  = self
         if searchStr != nil {
+            // Called from a search
             return
         }
         if showID == nil {
@@ -45,14 +46,11 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         super.viewWillAppear(animated)
         if showID != nil {
             // Coming from Shows
-            loadShowDetails()
+            showDetailModel.id = showID!
+            showDetailModel.getNotes()
+            showDetailModel.downloadSetList()
+            showDetailModel.downloadDetails()
         }
-    }
-
-    func loadShowDetails() {
-        showDetailModel.getNotes(id: showID!)
-        showDetailModel.downloadSetList(id: showID!)
-        showDetailModel.downloadDetails(id: showID!)
     }
 
     @IBAction func edit(_ sender: Any) {
@@ -61,6 +59,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         vc.showID = showID
         navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func posterTapped(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
@@ -86,11 +85,11 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
-        showDetailModel.getNextShow(showDate: showDate!)
+        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Next")
     }
     
     @IBAction func swipeRight(_ sender: Any) {
-        showDetailModel.getPreviousShow(showDate: showDate!)
+        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
     }
     
     func detailsDownloaded(show: ShowDetailModel) {
@@ -122,6 +121,11 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     func notesDownloaded(notes: String) {
        // showAlert(msg: "Notes downloaded")
         
+    }
+    
+    func sendMessage(msg: String)
+    {
+        showAlert(msg: msg)
     }
     
 }
@@ -156,6 +160,7 @@ extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ShowViewController {
+    
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
