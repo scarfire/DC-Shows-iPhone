@@ -25,6 +25,7 @@ class ShowDetailModel: NSObject {
     var defaultAudio: String? = ""
     var previousSet: String = ""
     var notes: String? = ""
+    var rating: Int?
     
     weak var delegate: ShowDetailsModelProtocol!
  
@@ -44,6 +45,7 @@ class ShowDetailModel: NSObject {
                 // Object exists - grab 1st in case of multiples
                 let show = shows.first!
                 notes = show.value(forKeyPath: "notes") as? String
+                rating = show.value(forKeyPath: "rating") as? Int
                 notes = notes ?? ""
             }
         }
@@ -121,6 +123,7 @@ class ShowDetailModel: NSObject {
             show.building = building
             show.defaultAudio = audio
             show.notes = notes!
+            show.rating = rating ?? 0
             show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
         }
         DispatchQueue.main.async(execute: { () -> Void in

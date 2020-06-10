@@ -105,7 +105,12 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         lblDate.text  = show.showDatePrint!
         lblCity.text = show.location!
         lblBuilding.text = show.building!
-        lblRating.text = "" // populate later from Core Data if exists
+        if show.rating! > 0 {
+            lblRating.text = String(show.rating!)
+        }
+        else {
+            lblRating.text = "Unrated"
+        }
         let url = URL(string: show.poster!)
         downloadImage(from: url!)
     }
