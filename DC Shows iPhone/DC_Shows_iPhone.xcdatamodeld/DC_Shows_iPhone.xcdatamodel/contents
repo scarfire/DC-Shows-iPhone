@@ -3,6 +3,7 @@
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
         <attribute name="favorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="poster" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
     </entity>
     <entity name="ShowDetails" representedClassName="ShowDetails" syncable="YES" codeGenerationType="class">
@@ -18,8 +19,8 @@
         <attribute name="url" attributeType="String"/>
     </entity>
     <elements>
+        <element name="Photo" positionX="-36" positionY="27" width="128" height="103"/>
         <element name="ShowDetails" positionX="-63" positionY="-18" width="128" height="28"/>
         <element name="Video" positionX="-54" positionY="36" width="128" height="28"/>
-        <element name="Photo" positionX="-36" positionY="27" width="128" height="28"/>
     </elements>
 </model>
