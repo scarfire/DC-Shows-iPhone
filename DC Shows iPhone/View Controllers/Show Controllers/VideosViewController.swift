@@ -1,10 +1,10 @@
 //
 //  VideosViewController.swift
 //  DC Shows iPhone
-//
 //  Created by Todd Stevens on 6/5/20.
 //  Copyright © 2020 Todd Stevens. All rights reserved.
 //
+//  Uses Core Data to store user video links
 
 import UIKit
 import CoreData
