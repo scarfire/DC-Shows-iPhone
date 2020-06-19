@@ -101,13 +101,6 @@
 			path = "DC Shows iPhone";
 			sourceTree = "<group>";
 		};
-		1C940CF02489D59C003A320B /* Media Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Media Controllers";
-			sourceTree = "<group>";
-		};
 		1C940CF12489D5A5003A320B /* Show Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				1C940CF12489D5A5003A320B /* Show Controllers */,
-				1C940CF02489D59C003A320B /* Media Controllers */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
