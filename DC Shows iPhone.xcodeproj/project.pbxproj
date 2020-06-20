@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C8B10D8249D921500527287 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C8B10D7249D921500527287 /* GoogleService-Info.plist */; };
+		1C709895249D9DA3008B1F48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C709894249D9DA3008B1F48 /* GoogleService-Info.plist */; };
 		1C940CDA2489D236003A320B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CD92489D236003A320B /* AppDelegate.swift */; };
 		1C940CDC2489D236003A320B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CDB2489D236003A320B /* SceneDelegate.swift */; };
 		1C940CE12489D236003A320B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C940CDF2489D236003A320B /* Main.storyboard */; };
@@ -33,7 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C8B10D7249D921500527287 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1C709894249D9DA3008B1F48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C940CD62489D236003A320B /* DC Shows iPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DC Shows iPhone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C940CD92489D236003A320B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C940CDB2489D236003A320B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 		1C940CD82489D236003A320B /* DC Shows iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				1C8B10D7249D921500527287 /* GoogleService-Info.plist */,
+				1C709894249D9DA3008B1F48 /* GoogleService-Info.plist */,
 				1C940D31248C3DBA003A320B /* Custom Controls */,
 				1C940D0C248C305B003A320B /* DataModels */,
 				1C940D0A248B3B2A003A320B /* server */,
@@ -168,7 +168,6 @@
 				4DD84B63FD281DEC78CA4260 /* Pods-DC Shows iPhone.debug.xcconfig */,
 				F7603A4DE85AB8EC92836EA2 /* Pods-DC Shows iPhone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -234,7 +233,7 @@
 			files = (
 				1C940CE92489D237003A320B /* LaunchScreen.storyboard in Resources */,
 				1C940D0B248B3B2A003A320B /* server in Resources */,
-				1C8B10D8249D921500527287 /* GoogleService-Info.plist in Resources */,
+				1C709895249D9DA3008B1F48 /* GoogleService-Info.plist in Resources */,
 				1C940CE62489D237003A320B /* Assets.xcassets in Resources */,
 				1C940CE12489D236003A320B /* Main.storyboard in Resources */,
 			);
