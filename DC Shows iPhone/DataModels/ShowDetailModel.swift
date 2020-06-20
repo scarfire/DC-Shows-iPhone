@@ -76,8 +76,8 @@ class ShowDetailModel: NSObject {
             self.id =  "\(id!)"
             DispatchQueue.main.async(execute: { () -> Void in
                 self.getNotes()
-                self.downloadDetails()
-                self.downloadSetList()
+                self.downloadDetails(serverDataSource: "PHP")
+                self.downloadSetList(serverDataSource: "PHP")
             })
         }
         else {
@@ -85,8 +85,10 @@ class ShowDetailModel: NSObject {
         }
     }
     
-    func getAdjacentShow(showDate: String, showType: String) {
-        getAdjacentShowFromPHP(showType, showDate)
+    func getAdjacentShow(showDate: String, showType: String, serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            getAdjacentShowFromPHP(showType, showDate)
+        }
     }
 
     fileprivate func getRandomShowIDFromPHP() {
@@ -99,14 +101,16 @@ class ShowDetailModel: NSObject {
             self.id = "\(id)"
             DispatchQueue.main.async(execute: { () -> Void in
                 self.getNotes()
-                self.downloadDetails()
-                self.downloadSetList()
+                self.downloadDetails(serverDataSource: "PHP")
+                self.downloadSetList(serverDataSource: "PHP")
             })
         }
     }
     
-    func getRandomShowID() {
-        getRandomShowIDFromPHP()
+    func getRandomShowID(serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            getRandomShowIDFromPHP()
+        }
     }
     
     fileprivate func downloadDetailsFromPHP() {
@@ -139,8 +143,10 @@ class ShowDetailModel: NSObject {
         })
     }
     
-    func downloadDetails() {
-        downloadDetailsFromPHP()
+    func downloadDetails(serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            downloadDetailsFromPHP()
+        }
     }
     
     fileprivate func downloadSetListFromPHP() {
@@ -184,8 +190,10 @@ class ShowDetailModel: NSObject {
         })
     }
     
-    func downloadSetList() {
-        downloadSetListFromPHP()
+    func downloadSetList(serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            downloadSetListFromPHP()
+        }
     }
     
     fileprivate func getSetName(set: String) -> String {

@@ -18,9 +18,12 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         let tourModel = TourModel()
         tourModel.delegate = self
-        tourModel.downloadItems()
+        tourModel.downloadItems(serverDataSource: delegate.serverDataSource)
     }
     
     override func viewWillAppear(_ animated: Bool) {

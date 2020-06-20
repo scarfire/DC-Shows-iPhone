@@ -40,8 +40,10 @@ class TourModel {
         })
     }
     
-    func downloadItems() {
-        downloadFromPHP()
+    func downloadItems(serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            downloadFromPHP()
+        }
     }
 }
 

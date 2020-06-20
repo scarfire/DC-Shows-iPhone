@@ -47,8 +47,10 @@ class ShowModel: NSObject {
         })
     }
     
-    func search(searchStr: String) {
-        searchPHP(searchStr)
+    func search(searchStr: String, serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            searchPHP(searchStr)
+        }
     }
 
     fileprivate func downloadFromPHP(_ year: String) {
@@ -78,7 +80,9 @@ class ShowModel: NSObject {
         })
     }
     
-    func downloadItems(year: String) {
-        downloadFromPHP(year)
+    func downloadItems(year: String, serverDataSource: String) {
+        if serverDataSource == "PHP" {
+            downloadFromPHP(year)
+        }
     }
 }

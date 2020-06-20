@@ -13,20 +13,23 @@ class ShowsViewController: UIViewController, ShowModelProtocol {
     var searchStr: String? = ""
     var year: String?
     var shows: [ShowModel] = []
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         let showModel = ShowModel()
         showModel.delegate = self
         if searchStr != "" {
             // Searching
-            showModel.search(searchStr: searchStr!)
+            showModel.search(searchStr: searchStr!, serverDataSource: delegate.serverDataSource)
         }
         else {
             // Selected a tour
-            showModel.downloadItems(year: year!)
+            showModel.downloadItems(year: year!, serverDataSource: delegate.serverDataSource)
         }
     }
     

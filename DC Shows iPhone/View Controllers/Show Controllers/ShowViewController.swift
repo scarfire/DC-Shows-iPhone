@@ -25,9 +25,12 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     @IBOutlet weak var btnAudio: UIBarButtonItem!
     
     let showDetailModel = ShowDetailModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -38,7 +41,7 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         }
         if showID == nil {
             // Random - need random ID first
-            showDetailModel.getRandomShowID()
+            showDetailModel.getRandomShowID(serverDataSource: delegate.serverDataSource)
         }
     }
     
@@ -46,10 +49,13 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         super.viewWillAppear(animated)
         if showID != nil {
             // Coming from Shows
+            guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
             showDetailModel.id = showID!
             showDetailModel.getNotes()
-            showDetailModel.downloadSetList()
-            showDetailModel.downloadDetails()
+            showDetailModel.downloadSetList(serverDataSource: delegate.serverDataSource)
+            showDetailModel.downloadDetails(serverDataSource: delegate.serverDataSource)
         }
     }
 
@@ -81,15 +87,24 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     @IBAction func random(_ sender: Any) {
-        showDetailModel.getRandomShowID()
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        showDetailModel.getRandomShowID(serverDataSource: delegate.serverDataSource)
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
-        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Next")
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Next", serverDataSource: delegate.serverDataSource)
     }
     
     @IBAction func swipeRight(_ sender: Any) {
-        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous", serverDataSource: delegate.serverDataSource)
     }
     
     func detailsDownloaded(show: ShowDetailModel) {
