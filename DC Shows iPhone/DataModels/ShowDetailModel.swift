@@ -54,7 +54,7 @@ class ShowDetailModel: NSObject {
         }
     }
     
-    func getAdjacentShow(showDate: String, showType: String) {
+    fileprivate func getAdjacentShowFromPHP(_ showType: String, _ showDate: String) {
         var url: URL?
         var alert: String?
         if showType == "Next" {
@@ -84,8 +84,12 @@ class ShowDetailModel: NSObject {
             self.delegate?.sendMessage(msg: alert!)
         }
     }
+    
+    func getAdjacentShow(showDate: String, showType: String) {
+        getAdjacentShowFromPHP(showType, showDate)
+    }
 
-    func getRandomShowID() {
+    fileprivate func getRandomShowIDFromPHP() {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getrandomshow.php")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
@@ -101,11 +105,15 @@ class ShowDetailModel: NSObject {
         }
     }
     
-    func downloadDetails() {
+    func getRandomShowID() {
+        getRandomShowIDFromPHP()
+    }
+    
+    fileprivate func downloadDetailsFromPHP() {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshow.php?show_id=\(id!)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-
+        
         var jsonElement = NSDictionary()
         jsonElement = jsonResult[0] as! NSDictionary
         let show = ShowDetailModel()
@@ -131,18 +139,22 @@ class ShowDetailModel: NSObject {
         })
     }
     
-    func downloadSetList() {
+    func downloadDetails() {
+        downloadDetailsFromPHP()
+    }
+    
+    fileprivate func downloadSetListFromPHP() {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsetlist.php?show_id=\(id!)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-
+        
         var jsonElement = NSDictionary()
         var setList = [SongModel]()
-
+        
         // Loop through each song in set list
         for i in 0 ..< jsonResult.count {
             jsonElement = jsonResult[i] as! NSDictionary
-
+            
             // Create and populate song
             let song = SongModel()
             if let title = jsonElement["title"] as? String,
@@ -154,13 +166,13 @@ class ShowDetailModel: NSObject {
             if previousSet != song.set! {
                 // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
                 switch song.set! {
-                    case "1":
-                        AddSetTitle(set: song.set!, setList: &setList)
-                    case "2", "3", "E":
-                        AddBlankRow(&setList)
-                        AddSetTitle(set: song.set!, setList: &setList)
-                    default:
-                        break
+                case "1":
+                    AddSetTitle(set: song.set!, setList: &setList)
+                case "2", "3", "E":
+                    AddBlankRow(&setList)
+                    AddSetTitle(set: song.set!, setList: &setList)
+                default:
+                    break
                 }
                 previousSet = song.set!
             }
@@ -170,6 +182,10 @@ class ShowDetailModel: NSObject {
         DispatchQueue.main.async(execute: { () -> Void in
             self.delegate.setListDownloaded(setList: setList)
         })
+    }
+    
+    func downloadSetList() {
+        downloadSetListFromPHP()
     }
     
     fileprivate func getSetName(set: String) -> String {

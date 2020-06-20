@@ -18,11 +18,11 @@ class TourModel {
     
     weak var delegate: TourModelProtocol!
         
-    func downloadItems() {
+    fileprivate func downloadFromPHP() {
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/gettours.php?userid=738792812")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-
+        
         var jsonElement = NSDictionary()
         var tours = [TourModel]()
         for i in 0 ..< jsonResult.count {
@@ -38,6 +38,10 @@ class TourModel {
         DispatchQueue.main.async(execute: { () -> Void in
             self.delegate.itemsDownloaded(items: tours)
         })
+    }
+    
+    func downloadItems() {
+        downloadFromPHP()
     }
 }
 

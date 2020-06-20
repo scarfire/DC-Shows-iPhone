@@ -20,12 +20,12 @@ class ShowModel: NSObject {
 
     weak var delegate: ShowModelProtocol!
 
-    func search(searchStr: String) {
+    fileprivate func searchPHP(_ searchStr: String) {
         // Get shows where searched song exists
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsearchresults.php?search=\(searchStr)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-
+        
         var jsonElement = NSDictionary()
         var shows = [ShowModel]()
         for i in 0 ..< jsonResult.count {
@@ -46,13 +46,17 @@ class ShowModel: NSObject {
             self.delegate.itemsDownloaded(items: shows)
         })
     }
+    
+    func search(searchStr: String) {
+        searchPHP(searchStr)
+    }
 
-    func downloadItems(year: String) {
+    fileprivate func downloadFromPHP(_ year: String) {
         // Get shows for tour year
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshowsfortour.php?year=\(year)")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-
+        
         var jsonElement = NSDictionary()
         var shows = [ShowModel]()
         for i in 0 ..< jsonResult.count {
@@ -72,5 +76,9 @@ class ShowModel: NSObject {
         DispatchQueue.main.async(execute: { () -> Void in
             self.delegate.itemsDownloaded(items: shows)
         })
+    }
+    
+    func downloadItems(year: String) {
+        downloadFromPHP(year)
     }
 }
