@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 protocol ShowModelProtocol: class {
     func itemsDownloaded(items: [ShowModel])
@@ -19,6 +20,14 @@ class ShowModel: NSObject {
     var poster: String? = ""
 
     weak var delegate: ShowModelProtocol!
+
+    func getDBReference() -> Firestore {
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.isPersistenceEnabled = false
+        db.settings = settings
+        return db
+    }
 
     fileprivate func searchPHP(_ searchStr: String) {
         // Get shows where searched song exists
@@ -53,7 +62,7 @@ class ShowModel: NSObject {
         }
     }
 
-    fileprivate func downloadFromPHP(_ year: String) {
+    fileprivate func downloadFromPHP(year: String) {
         // Get shows for tour year
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshowsfortour.php?year=\(year)")
         let data = try? Data(contentsOf: url!)
@@ -80,9 +89,38 @@ class ShowModel: NSObject {
         })
     }
     
+    func downloadFromFireBase(year: String) {
+        let db = getDBReference()
+        db.collection("shows").whereField("year", isEqualTo: "2019").order(by: "show_date").getDocuments() { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            var shows = [ShowModel]()
+            for doc in documents {
+                let show = ShowModel()
+                if let showDate = doc.data()["show_date"] as? String,
+                    let poster = doc.data()["poster"] as? String,
+                    let location = doc.data()["city_state_country"] as? String
+                {
+                    show.showDate = showDate
+                    show.location = location
+                    show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
+                }
+                shows.append(show)
+            }
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.delegate.itemsDownloaded(items: shows)
+            })
+        }
+    }
+    
     func downloadItems(year: String, serverDataSource: String) {
         if serverDataSource == "PHP" {
-            downloadFromPHP(year)
+            downloadFromPHP(year: year)
+        }
+        else {
+            downloadFromFireBase(year: year)
         }
     }
 }

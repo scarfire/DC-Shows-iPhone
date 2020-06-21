@@ -51,7 +51,7 @@ class TourModel {
     
     func downloadFromFireBase() {
         let db = getDBReference()
-        db.collection("tours").order(by: "year").getDocuments() { (querySnapshot, error) in
+        db.collection("tours").order(by: "year", descending: true).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
