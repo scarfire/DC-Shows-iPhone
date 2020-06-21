@@ -90,8 +90,9 @@ class ShowModel: NSObject {
     }
     
     func downloadFromFireBase(year: String) {
+        let intYear = Int32(year)
         let db = getDBReference()
-        db.collection("shows").whereField("year", isEqualTo: "2019").order(by: "show_date").getDocuments() { (querySnapshot, error) in
+        db.collection("shows").order(by: "year", descending: true).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
@@ -99,7 +100,7 @@ class ShowModel: NSObject {
             var shows = [ShowModel]()
             for doc in documents {
                 let show = ShowModel()
-                if let showDate = doc.data()["show_date"] as? String,
+                if let showDate = doc.data()["showdate"] as? String,
                     let poster = doc.data()["poster"] as? String,
                     let location = doc.data()["city_state_country"] as? String
                 {
@@ -123,4 +124,6 @@ class ShowModel: NSObject {
             downloadFromFireBase(year: year)
         }
     }
+    
+    
 }
