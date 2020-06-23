@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 protocol ShowDetailsModelProtocol: class {
     func detailsDownloaded(show: ShowDetailModel)
@@ -29,6 +30,14 @@ class ShowDetailModel: NSObject {
     
     weak var delegate: ShowDetailsModelProtocol!
  
+    func getDBReference() -> Firestore {
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.isPersistenceEnabled = false
+        db.settings = settings
+        return db
+    }
+
     func getNotes() {
         // Load notes from Core Data
         do {
@@ -190,9 +199,53 @@ class ShowDetailModel: NSObject {
         })
     }
     
+    fileprivate func downloadSetListFromFireBase() {
+        // Get shows where searched song exists
+        let db = getDBReference()
+        // Find shows with selected song
+        db.collection("set_lists").whereField("show_id", isEqualTo: 15).order(by: "set_number", descending: false).getDocuments() { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            var setList = [SongModel]()
+            for doc in documents {
+                // Create and populate song
+                let song = SongModel()
+                if let title = doc["title"] as? String,
+                    let set = doc["set_number"] as? String {
+                    song.title = title
+                    song.set = set
+                }
+                
+                if self.previousSet != song.set! {
+                    // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
+                    switch song.set! {
+                    case "1":
+                        self.AddSetTitle(set: song.set!, setList: &setList)
+                    case "2", "3", "E":
+                        self.AddBlankRow(&setList)
+                        self.AddSetTitle(set: song.set!, setList: &setList)
+                    default:
+                        break
+                    }
+                    self.previousSet = song.set!
+                }
+                setList.append(song)
+            }
+            self.AddNotesSection(&setList)
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.delegate.setListDownloaded(setList: setList)
+            })
+        }
+    }
+    
     func downloadSetList(serverDataSource: String) {
         if serverDataSource == "PHP" {
             downloadSetListFromPHP()
+        }
+        else {
+            downloadSetListFromFireBase()
         }
     }
     
