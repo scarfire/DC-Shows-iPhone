@@ -154,38 +154,30 @@ class ShowDetailModel: NSObject {
     
     fileprivate func downloadDetailsFromFireBase() {
         let db = getDBReference()
-        db.collection("shows").whereField("show_id", isEqualTo: 15).order(by: "set_number", descending: false).getDocuments() { (querySnapshot, error) in
+        db.collection("shows").whereField("show_id", isEqualTo: 15).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
             }
-            var setList = [SongModel]()
-            for doc in documents {
-                // Create and populate song
-                let song = SongModel()
-                if let title = doc["title"] as? String,
-                    let set = doc["set_number"] as? String {
-                    song.title = title
-                    song.set = set
-                }
-                
-                if self.previousSet != song.set! {
-                    // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
-                    switch song.set! {
-                    case "1":
-                        self.AddSetTitle(set: song.set!, setList: &setList)
-                    case "2", "3", "E":
-                        self.AddBlankRow(&setList)
-                        self.AddSetTitle(set: song.set!, setList: &setList)
-                    default:
-                        break
-                    }
-                    self.previousSet = song.set!
-                }
-                setList.append(song)
+            let show = ShowDetailModel()
+            let doc = documents[0]
+            if let showDate = doc.data()["showdate"] as? String,
+                let poster = doc.data()["poster"] as? String,
+                let building = doc.data()["building"] as? String,
+                let location = doc.data()["city_state_country"] as? String,
+                let defaultAudio = doc.data()["audio"] as? String
+            {
+                show.id = self.id!
+                show.showDate = showDate
+                show.showDatePrint = showDate
+                show.building = building
+                show.location = location
+                show.defaultAudio = defaultAudio
+                show.rating = 0
+                show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
             }
             DispatchQueue.main.async(execute: { () -> Void in
-              //  self.delegate.detailsDownloaded(show: show)
+                self.delegate.detailsDownloaded(show: show)
             })
         }
     }
