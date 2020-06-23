@@ -63,7 +63,7 @@ class ShowModel: NSObject {
 
     func getShowForFireBase(showID: Int) {
         let db = getDBReference()
-        db.collection("shows").whereField("show_ID", isEqualTo: showID).getDocuments() { (querySnapshot, error) in
+        db.collection("shows").whereField("show_id", isEqualTo: showID).getDocuments() { (querySnapshot, error) in
            guard let documents = querySnapshot?.documents else {
                print("Error fetching documents: \(error!)")
                return

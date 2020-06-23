@@ -152,9 +152,50 @@ class ShowDetailModel: NSObject {
         })
     }
     
+    fileprivate func downloadDetailsFromFireBase() {
+        let db = getDBReference()
+        db.collection("shows").whereField("show_id", isEqualTo: 15).order(by: "set_number", descending: false).getDocuments() { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            var setList = [SongModel]()
+            for doc in documents {
+                // Create and populate song
+                let song = SongModel()
+                if let title = doc["title"] as? String,
+                    let set = doc["set_number"] as? String {
+                    song.title = title
+                    song.set = set
+                }
+                
+                if self.previousSet != song.set! {
+                    // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
+                    switch song.set! {
+                    case "1":
+                        self.AddSetTitle(set: song.set!, setList: &setList)
+                    case "2", "3", "E":
+                        self.AddBlankRow(&setList)
+                        self.AddSetTitle(set: song.set!, setList: &setList)
+                    default:
+                        break
+                    }
+                    self.previousSet = song.set!
+                }
+                setList.append(song)
+            }
+            DispatchQueue.main.async(execute: { () -> Void in
+              //  self.delegate.detailsDownloaded(show: show)
+            })
+        }
+    }
+    
     func downloadDetails(serverDataSource: String) {
         if serverDataSource == "PHP" {
             downloadDetailsFromPHP()
+        }
+        else {
+            downloadDetailsFromFireBase()
         }
     }
     
@@ -200,9 +241,7 @@ class ShowDetailModel: NSObject {
     }
     
     fileprivate func downloadSetListFromFireBase() {
-        // Get shows where searched song exists
         let db = getDBReference()
-        // Find shows with selected song
         db.collection("set_lists").whereField("show_id", isEqualTo: 15).order(by: "set_number", descending: false).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
