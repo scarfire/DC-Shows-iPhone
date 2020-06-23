@@ -154,7 +154,8 @@ class ShowDetailModel: NSObject {
     
     fileprivate func downloadDetailsFromFireBase() {
         let db = getDBReference()
-        db.collection("shows").whereField("show_id", isEqualTo: 15).getDocuments() { (querySnapshot, error) in
+        let intID = Int(id!)
+        db.collection("shows").whereField("show_id", isEqualTo: intID!).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return

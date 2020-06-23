@@ -166,8 +166,10 @@ class ShowModel: NSObject {
                 let show = ShowModel()
                 if let showDate = doc.data()["showdate"] as? String,
                     let poster = doc.data()["poster"] as? String,
+                    let showID = doc.data()["show_id"] as? Int,
                     let location = doc.data()["city_state_country"] as? String
                 {
+                    show.id = showID
                     show.showDate = showDate
                     show.location = location
                     show.poster = "https://toddlstevens.com/apps/dcshows/images/posters/\(poster)"
