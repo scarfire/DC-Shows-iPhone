@@ -156,7 +156,7 @@ class ShowModel: NSObject {
     
     func downloadFromFireBase(year: String) {
         let db = getDBReference()
-        db.collection("shows").order(by: "year", descending: true).getDocuments() { (querySnapshot, error) in
+        db.collection("shows").order(by: "rawdate", descending: false).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
