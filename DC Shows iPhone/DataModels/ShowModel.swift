@@ -94,7 +94,7 @@ class ShowModel: NSObject {
         // Get shows where searched song exists
         let db = getDBReference()
         // Find shows with selected song
-        db.collection("set_lists").whereField("title", isEqualTo: "Terrapin Station") .getDocuments() { (querySnapshot, error) in
+        db.collection("set_lists").whereField("title", isEqualTo: "Terrapin Station").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
@@ -102,6 +102,7 @@ class ShowModel: NSObject {
             for doc in documents {
                 if let showID = doc.data()["show_id"] as? Int
                 {
+                    // get all shows that match
                     self.showIDs.append(showID)
                 }
             }
