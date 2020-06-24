@@ -95,7 +95,7 @@ class ShowModel: NSObject {
         // Get shows where searched song exists
         let db = getDBReference()
         // Find shows with selected song
-        db.collection("set_lists").whereField("title", isEqualTo: "Terrapin Station").getDocuments() { (querySnapshot, error) in
+        db.collection("set_lists").whereField("title", isEqualTo: searchStr).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
