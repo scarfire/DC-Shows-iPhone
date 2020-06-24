@@ -6,12 +6,18 @@
         <attribute name="poster" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
     </entity>
-    <entity name="ShowDetails" representedClassName="ShowDetails" syncable="YES" codeGenerationType="class">
-        <attribute name="attended" attributeType="String"/>
-        <attribute name="audio" optional="YES" attributeType="String"/>
-        <attribute name="notes" optional="YES" attributeType="String"/>
-        <attribute name="rating" attributeType="Integer 16" minValueString="0" maxValueString="10" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
+    <entity name="Show" representedClassName="Show" syncable="YES" codeGenerationType="class">
+        <attribute name="building" attributeType="String"/>
+        <attribute name="city_state_country" attributeType="String"/>
+        <attribute name="date_printed" attributeType="String"/>
+        <attribute name="date_show" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="default_audio" optional="YES" attributeType="String"/>
+        <attribute name="poster" attributeType="String"/>
+        <attribute name="show_id" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="user_attended" attributeType="String"/>
+        <attribute name="user_audio" optional="YES" attributeType="String"/>
+        <attribute name="user_notes" optional="YES" attributeType="String"/>
+        <attribute name="user_rating" attributeType="Integer 16" minValueString="0" maxValueString="10" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Video" representedClassName="Video" syncable="YES" codeGenerationType="class">
         <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
@@ -20,7 +26,7 @@
     </entity>
     <elements>
         <element name="Photo" positionX="-36" positionY="27" width="128" height="103"/>
-        <element name="ShowDetails" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="Show" positionX="-63" positionY="-18" width="128" height="208"/>
         <element name="Video" positionX="-54" positionY="36" width="128" height="28"/>
     </elements>
 </model>
