@@ -42,6 +42,10 @@ class CoreDataLocal {
     }
     
     func downloadTours() {
+        // Download all tours
+        /*
+                 [{"year":2015,"poster":"2015nashville.png"},{"year":2016,"poster":"2016camden.png"},{"year":2017,"poster":"2017mountainview.png"},{"year":2018,"poster":"2018neworleans.png"},{"year":2019,"poster":"2019saratoga.png"},{"year":2020,"poster":"2020mexico.png"}]
+                */
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/gettoursforCoreData.php?last_updated=2000-01-01")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
@@ -58,10 +62,31 @@ class CoreDataLocal {
             }
             tours.append(tour)
         }
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+           return
+        }
+         
+        let managedContext = appDelegate.persistentContainer.viewContext
+        for t in tours {
+            let entity = NSEntityDescription.entity(forEntityName: "Tour", in: managedContext)!
+            let tour = NSManagedObject(entity: entity, insertInto: managedContext)
+            tour.setValue(Int16(t.year), forKey: "year")
+            tour.setValue(t.poster, forKeyPath: "poster")
+            do {
+               try managedContext.save()
+            }
+            catch let error as NSError {
+               print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
     }
     
     func downloadShows() {
-        // Get shows for tour year
+        // Get all shows
+        /*
+                [{"id":87,"title":"Bertha","set_number":"1"},{"id":88,"title":"Good Lovin'","set_number":"1"},{"id":89,"title":"Shakedown Street","set_number":"1"},{"id":90,"title":"They Love Each Other","set_number":"1"},{"id":91,"title":"Black-Throated Wind","set_number":"1"},{"id":92,"title":"Mr. Charlie","set_number":"1"},{"id":93,"title":"Mississippi Half-Step Uptown Toodeloo","set_number":"1"},{"id":94,"title":"Throwing Stones","set_number":"1"},{"id":95,"title":"Althea","set_number":"2"},{"id":96,"title":"Estimated Prophet","set_number":"2"},{"id":97,"title":"Eyes of the World","set_number":"2"},{"id":98,"title":"Terrapin Station","set_number":"2"},{"id":99,"title":"Drums","set_number":"2"},{"id":100,"title":"Space","set_number":"2"},{"id":101,"title":"My Favorite Things","set_number":"2"},{"id":102,"title":"Days Between","set_number":"2"},{"id":103,"title":"China Cat Sunflower","set_number":"2"},{"id":104,"title":"I Know You Rider","set_number":"2"},{"id":105,"title":"Touch of Grey","set_number":"E"}]
+                */
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshowsforCoreData.php?last_updated=2000-01-01")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
@@ -91,6 +116,10 @@ class CoreDataLocal {
     }
     
     func downloadSetLists() {
+        // Download all set lists
+        /*
+                [{"show_id":70,"date_show":"2015-10-29","date_printed":"Oct 29, 2015","city_state_country":"Albany, NY","building":"Times Union Center","default_audio":"https:\/\/archive.org\/details\/10-29-15DeadAndCompanyTimesUnionCenterAlbanyNy","poster":"2015albany.png"},{"show_id":71,"date_show":"2015-10-31","date_printed":"Oct 31, 2015","city_state_country":"New York, NY","building":"Madison Square Garden","default_audio":"https:\/\/archive.org\/details\/Dc20151031.14.eyesOfTheWorld","poster":"2015newyorkcity.png"},{"show_id":82,"date_show":"2015-11-01","date_printed":"Nov 01, 2015","city_state_country":"New York, NY","building":"Madison Square Garden","default_audio":"https:\/\/archive.org\/details\/DeadCo.11-1-2015MSG","poster":"2015newyorkcity.png"}
+                */
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getsetlistsforCoreData.php?last_updated=2000-01-01")
         let data = try? Data(contentsOf: url!)
         let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray

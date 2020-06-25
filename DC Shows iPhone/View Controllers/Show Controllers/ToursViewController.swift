@@ -8,29 +8,45 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var tours: [TourModel] = []
+    var tours: [CoreDataTour] = []
         
     override func viewDidLoad() {
         super.viewDidLoad()
         let core = CoreDataLocal()
+        searchBar.delegate = self
+        let tourModel = TourModel()
+        tourModel.delegate = self
+        //tourModel.downloadItems()
         core.downloadData()
-//        return
-//        searchBar.delegate = self
-//        let tourModel = TourModel()
-//        tourModel.delegate = self
-//        tourModel.downloadItems()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let tourFetch = NSFetchRequest<NSManagedObject>(entityName: "Tour")
+
+        do {
+          let toursResult = try managedContext.fetch(tourFetch)
+            for data in toursResult as [NSManagedObject] {
+                print(data.value(forKey: "year") as! Int)
+                print(data.value(forKey: "poster") as! String)
+            }
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+       // collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        return
-//        searchBar.text = ""
+        searchBar.text = ""
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -56,7 +72,7 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
     }
     
     func itemsDownloaded(items: [TourModel]) {
-        tours = items
+       // tours = items
         collectionView.reloadData()
     }
 
@@ -89,7 +105,7 @@ extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSou
         // Configure the cell
         let tour = tours[indexPath.row]
         cell.lblYear.text = "\(tour.year)"
-        let url = URL(string: tour.poster!)
+        let url = URL(string: tour.poster)
         downloadImage(from: url!, cell: cell)
         return cell
     }
