@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDelegate {
     
@@ -17,15 +18,19 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        let tourModel = TourModel()
-        tourModel.delegate = self
-        tourModel.downloadItems()
+        let core = CoreDataLocal()
+        core.downloadData()
+//        return
+//        searchBar.delegate = self
+//        let tourModel = TourModel()
+//        tourModel.delegate = self
+//        tourModel.downloadItems()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchBar.text = ""
+//        return
+//        searchBar.text = ""
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

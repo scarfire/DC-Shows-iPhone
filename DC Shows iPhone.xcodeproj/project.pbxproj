@@ -28,7 +28,7 @@
 		1C940D35248C4BC7003A320B /* ShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D34248C4BC7003A320B /* ShowsViewController.swift */; };
 		1C940D37248C5A00003A320B /* ShowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D36248C5A00003A320B /* ShowCollectionViewCell.swift */; };
 		1C940D39248C6453003A320B /* ShowDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D38248C6453003A320B /* ShowDetailModel.swift */; };
-		1CDBC83B24A3930500139891 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDBC83A24A3930500139891 /* CoreData.swift */; };
+		1CDBC83B24A3930500139891 /* CoreDataLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDBC83A24A3930500139891 /* CoreDataLocal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +55,7 @@
 		1C940D34248C4BC7003A320B /* ShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsViewController.swift; sourceTree = "<group>"; };
 		1C940D36248C5A00003A320B /* ShowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCollectionViewCell.swift; sourceTree = "<group>"; };
 		1C940D38248C6453003A320B /* ShowDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailModel.swift; sourceTree = "<group>"; };
-		1CDBC83A24A3930500139891 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		1CDBC83A24A3930500139891 /* CoreDataLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataLocal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +133,7 @@
 				1C940D00248AE3A5003A320B /* SongModel.swift */,
 				1C940CFE248AE34D003A320B /* VideoModel.swift */,
 				1C940D04248AE460003A320B /* UserInfoModel.swift */,
-				1CDBC83A24A3930500139891 /* CoreData.swift */,
+				1CDBC83A24A3930500139891 /* CoreDataLocal.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -223,7 +223,7 @@
 				1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */,
 				1C940CF42489D618003A320B /* ShowViewController.swift in Sources */,
 				1C940CE42489D236003A320B /* DC_Shows_iPhone.xcdatamodeld in Sources */,
-				1CDBC83B24A3930500139891 /* CoreData.swift in Sources */,
+				1CDBC83B24A3930500139891 /* CoreDataLocal.swift in Sources */,
 				1C940D33248C3DDE003A320B /* TourCollectionViewCell.swift in Sources */,
 				1C940CFF248AE34D003A320B /* VideoModel.swift in Sources */,
 				1C940D35248C4BC7003A320B /* ShowsViewController.swift in Sources */,
