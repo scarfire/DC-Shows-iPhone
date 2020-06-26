@@ -7,9 +7,9 @@
         <attribute name="showID" attributeType="Integer 16" usesScalarValueType="YES"/>
     </entity>
     <entity name="SetList" representedClassName="SetList" syncable="YES" codeGenerationType="class">
-        <attribute name="set_number" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="set_number" attributeType="String"/>
         <attribute name="show_id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="song_sequence" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
     </entity>
     <entity name="Show" representedClassName="Show" syncable="YES" codeGenerationType="class">

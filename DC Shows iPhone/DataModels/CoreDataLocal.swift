@@ -28,7 +28,7 @@ struct CoreDataShow {
 
 struct CoreDataSetList {
     var showID: Int = 0
-    var songID: Int = 0
+    var id: Int = 0
     var title: String = ""
     var setNumber: String = ""
 }
@@ -63,6 +63,7 @@ class CoreDataLocal {
             tours.append(tour)
         }
         
+        // Save tours to Core Data
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
            return
         }
@@ -113,6 +114,44 @@ class CoreDataLocal {
             }
             shows.append(show)
         }
+        
+        // Save shows to Core Data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+           return
+        }
+         
+        let managedContext = appDelegate.persistentContainer.viewContext
+        for s in shows {
+            let entity = NSEntityDescription.entity(forEntityName: "Show", in: managedContext)!
+            let show = NSManagedObject(entity: entity, insertInto: managedContext)
+            show.setValue(Int16(s.showID), forKey: "show_id")
+            show.setValue(stringToDate(strDate: s.showDate), forKey: "date_show")
+            show.setValue(s.printDate, forKey: "date_printed")
+            show.setValue(s.building, forKey: "building")
+            show.setValue(s.location, forKey: "city_state_country")
+            show.setValue(s.defaultAudio, forKey: "default_audio")
+            show.setValue(s.poster, forKeyPath: "poster")
+            show.setValue(0, forKey: "user_rating")
+            show.setValue("N", forKey: "user_attended")
+            show.setValue("", forKey: "user_audio")
+            show.setValue("", forKey: "user_notes")
+            do {
+               try managedContext.save()
+            }
+            catch let error as NSError {
+               print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
+
+    }
+    
+    func stringToDate(strDate: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: strDate) {
+            return date
+        }
+        return Date()
     }
     
     func downloadSetLists() {
@@ -137,11 +176,11 @@ class CoreDataLocal {
             if let title = jsonElement["title"] as? String,
                 let showID = jsonElement["show_id"] as? Int,
                 let setNumber = jsonElement["set_number"] as? String,
-                let songID = jsonElement["id"] as? Int {
+                let id = jsonElement["id"] as? Int {
                     song.title = title
                     song.showID = showID
                     song.setNumber = setNumber
-                    song.songID = songID
+                    song.id = id
             }
             
 //            if previousSet != song.setNumber {
@@ -159,6 +198,28 @@ class CoreDataLocal {
 //            }
             setLists.append(song)
         }
+        
+        // Save set lists to Core Data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+           return
+        }
+         
+        let managedContext = appDelegate.persistentContainer.viewContext
+        for s in setLists {
+            let entity = NSEntityDescription.entity(forEntityName: "SetList", in: managedContext)!
+            let show = NSManagedObject(entity: entity, insertInto: managedContext)
+            show.setValue(Int32(s.id), forKey: "id")
+            show.setValue(Int16(s.showID), forKey: "show_id")
+            show.setValue(s.title, forKey: "title")
+            show.setValue(s.setNumber, forKey: "set_number")
+            do {
+               try managedContext.save()
+            }
+            catch let error as NSError {
+               print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
+
 //        AddNotesSection(&setList)
 //        DispatchQueue.main.async(execute: { () -> Void in
 //            self.delegate.setListDownloaded(setList: setLists)

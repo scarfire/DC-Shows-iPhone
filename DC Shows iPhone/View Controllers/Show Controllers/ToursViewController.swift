@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import CoreData
 
-class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDelegate {
+class ToursViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -19,11 +19,8 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        let core = CoreDataLocal()
         searchBar.delegate = self
-        let tourModel = TourModel()
-        tourModel.delegate = self
-        //tourModel.downloadItems()
+        let core = CoreDataLocal()
         core.downloadData()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -41,7 +38,34 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
-       // collectionView.reloadData()
+
+        let showsFetch = NSFetchRequest<NSManagedObject>(entityName: "Show")
+
+        do {
+          let showsResult = try managedContext.fetch(showsFetch)
+            for data in showsResult as [NSManagedObject] {
+                print(data.value(forKey: "date_printed") as! String)
+                print(data.value(forKey: "city_state_country") as! String)
+            }
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+
+        let setListsFetch = NSFetchRequest<NSManagedObject>(entityName: "SetList")
+
+        do {
+          let setListsResult = try managedContext.fetch(setListsFetch)
+            for data in setListsResult as [NSManagedObject] {
+                print(data.value(forKey: "id") as! Int)
+                print(data.value(forKey: "title") as! String)
+            }
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+
+        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,10 +95,10 @@ class ToursViewController: UIViewController, TourModelProtocol, UISearchBarDeleg
     @IBAction func photos(_ sender: Any) {
     }
     
-    func itemsDownloaded(items: [TourModel]) {
-       // tours = items
-        collectionView.reloadData()
-    }
+//    func itemsDownloaded(items: [TourModel]) {
+//        tours = items
+//        collectionView.reloadData()
+//    }
 
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
@@ -98,7 +122,6 @@ extension ToursViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView
           .dequeueReusableCell(withReuseIdentifier: "TourCell", for: indexPath) as! TourCollectionViewCell
         //cell.backgroundColor = .black
