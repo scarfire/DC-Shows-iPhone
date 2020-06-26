@@ -28,11 +28,16 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let tourFetch = NSFetchRequest<NSManagedObject>(entityName: "Tour")
-
+        let sort = NSSortDescriptor(key: "year", ascending: false)
+        tourFetch.sortDescriptors = [sort]
         do {
           let toursResult = try managedContext.fetch(tourFetch)
             for data in toursResult as [NSManagedObject] {
-                print(data.value(forKey: "year") as! Int)
+                //print(data.value(forKey: "year") as! Int)
+                var tour = CoreDataTour()
+                tour.year = data.value(forKey: "year") as! Int
+                tour.poster = data.value(forKey: "poster") as! String
+                tours.append(tour)
             }
         }
         catch let error as NSError {
