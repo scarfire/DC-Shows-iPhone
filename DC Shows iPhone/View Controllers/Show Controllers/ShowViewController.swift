@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class ShowViewController: UIViewController, ShowDetailsModelProtocol {
+class ShowViewController: UIViewController {
 
     var showID: String?
     var showDate: String?
@@ -24,21 +25,20 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     @IBOutlet weak var lblBuilding: UILabel!
     @IBOutlet weak var btnAudio: UIBarButtonItem!
     
-    let showDetailModel = ShowDetailModel()
+    let showDetailModel = CoreDataShow()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
-        showDetailModel.delegate  = self
         if searchStr != nil {
             // Called from a search
             return
         }
         if showID == nil {
             // Random - need random ID first
-            showDetailModel.getRandomShowID()
+            //showDetailModel.getRandomShowID()
         }
     }
     
@@ -46,10 +46,35 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
         super.viewWillAppear(animated)
         if showID != nil {
             // Coming from Shows
-            showDetailModel.id = showID!
-            showDetailModel.getNotes()
-            showDetailModel.downloadSetList()
-            showDetailModel.downloadDetails()
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
+            let sort = NSSortDescriptor(key: "date_show", ascending: true)
+            request.sortDescriptors = [sort]
+            let intShowID = Int32(showID!)
+            request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
+            do {
+              let showsResult = try managedContext.fetch(request)
+                for data in showsResult as [NSManagedObject] {
+                    var show = CoreDataShow()
+                    show.showID = data.value(forKey: "show_id") as! Int
+                    show.location = data.value(forKey: "city_state_country") as! String
+                    show.printDate = data.value(forKey: "date_printed") as! String
+                    show.poster = data.value(forKey: "poster") as! String
+                    show.building = data.value(forKey: "building") as! String
+                    show.defaultAudio = data.value(forKey: "default_audio") as! String
+                    show.user_rating = data.value(forKey: "user_rating") as! Int
+                    show.user_notes = data.value(forKey: "user_notes") as! String
+                    show.user_audio = data.value(forKey: "user_audio") as! String
+                    show.user_attended = data.value(forKey: "user_attended") as! String
+                    refreshUI(show: show)
+                }
+            }
+            catch let error as NSError {
+              print("Could not fetch. \(error), \(error.userInfo)")
+            }
         }
     }
 
@@ -81,37 +106,36 @@ class ShowViewController: UIViewController, ShowDetailsModelProtocol {
     }
     
     @IBAction func random(_ sender: Any) {
-        showDetailModel.getRandomShowID()
+       // showDetailModel.getRandomShowID()
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
-        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Next")
+       // showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Next")
     }
     
     @IBAction func swipeRight(_ sender: Any) {
-        showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
+       // showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
     }
     
-    func detailsDownloaded(show: ShowDetailModel) {
-        showID = show.id
-        showDate = show.showDate!
-        defaultAudio = show.defaultAudio!
+    func refreshUI(show: CoreDataShow) {
+        showID = String(show.showID)
+        if show.user_audio != "" {
+            defaultAudio = show.user_audio
+        }
+        else {
+            defaultAudio = show.defaultAudio
+        }
         if defaultAudio == "" {
             btnAudio.isEnabled = false
         }
         else {
             btnAudio.isEnabled = true
         }
-        lblDate.text  = show.showDatePrint!
-        lblCity.text = show.location!
-        lblBuilding.text = show.building!
-        if show.rating! > 0 {
-            lblRating.text = String(show.rating!)
-        }
-        else {
-            lblRating.text = "Unrated"
-        }
-        let url = URL(string: show.poster!)
+        lblDate.text  = show.printDate
+        lblCity.text = show.location
+        lblBuilding.text = show.building
+        lblRating.text = (show.user_rating > 0) ? String(show.user_rating) : "Unrated"
+        let url = URL(string: show.poster)
         downloadImage(from: url!)
     }
     

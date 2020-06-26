@@ -49,7 +49,7 @@ class ShowsViewController: UIViewController {
             catch let error as NSError {
               print("Could not fetch. \(error), \(error.userInfo)")
             }
-            }
+        }
     }
 
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {

@@ -25,6 +25,10 @@ struct CoreDataShow {
     var showDate: String = ""
     var printDate: String = ""
     var year: Int = 0
+    var user_notes: String = ""
+    var user_audio: String = ""
+    var user_rating: Int = 0
+    var user_attended: String = "N"
 }
 
 struct CoreDataSetList {
