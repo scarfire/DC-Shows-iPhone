@@ -45,39 +45,48 @@ class ShowViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if showID != nil {
-            // Coming from Shows
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
+            // Coming from Shows - load show details
+            if let show = loadShowDetails() {
+                refreshUI(show: show)
             }
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
-            let sort = NSSortDescriptor(key: "date_show", ascending: true)
-            request.sortDescriptors = [sort]
-            let intShowID = Int32(showID!)
-            request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
-            do {
-              let showsResult = try managedContext.fetch(request)
-                for data in showsResult as [NSManagedObject] {
-                    var show = CoreDataShow()
-                    show.showID = data.value(forKey: "show_id") as! Int
-                    show.location = data.value(forKey: "city_state_country") as! String
-                    show.printDate = data.value(forKey: "date_printed") as! String
-                    show.poster = data.value(forKey: "poster") as! String
-                    show.building = data.value(forKey: "building") as! String
-                    show.defaultAudio = data.value(forKey: "default_audio") as! String
-                    show.user_rating = data.value(forKey: "user_rating") as! Int
-                    show.user_notes = data.value(forKey: "user_notes") as! String
-                    show.user_audio = data.value(forKey: "user_audio") as! String
-                    show.user_attended = data.value(forKey: "user_attended") as! String
-                    refreshUI(show: show)
-                }
-            }
-            catch let error as NSError {
-              print("Could not fetch. \(error), \(error.userInfo)")
-            }
+            
         }
     }
 
+    func loadShowDetails() -> CoreDataShow? {
+        // Load show details from Core Data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return nil
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
+        let sort = NSSortDescriptor(key: "date_show", ascending: true)
+        request.sortDescriptors = [sort]
+        request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
+        do {
+          let showsResult = try managedContext.fetch(request)
+            for data in showsResult as [NSManagedObject] {
+                var show = CoreDataShow()
+                show.showID = data.value(forKey: "show_id") as! Int
+                show.location = data.value(forKey: "city_state_country") as! String
+                show.printDate = data.value(forKey: "date_printed") as! String
+                show.poster = data.value(forKey: "poster") as! String
+                show.building = data.value(forKey: "building") as! String
+                show.defaultAudio = data.value(forKey: "default_audio") as! String
+                show.user_rating = data.value(forKey: "user_rating") as! Int
+                show.user_notes = data.value(forKey: "user_notes") as! String
+                show.user_audio = data.value(forKey: "user_audio") as! String
+                show.user_attended = data.value(forKey: "user_attended") as! String
+                return show
+            }
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+            return nil
+        }
+        return nil
+    }
+    
     @IBAction func edit(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ShowEdit") as! ShowEditViewController
