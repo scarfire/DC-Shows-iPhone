@@ -21,37 +21,65 @@ class ShowsViewController: UIViewController {
         super.viewDidLoad()
         if searchStr != "" {
             // Searching
-           // showModel.search(searchStr: searchStr!)
+           searchShows(searchStr: searchStr!)
         }
         else {
-            // Selected a tour - Load all shows
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
-            let sort = NSSortDescriptor(key: "date_show", ascending: true)
-            request.sortDescriptors = [sort]
-            request.predicate = NSPredicate(format: "year == %@", year!.description)
-            do {
-              let showsResult = try managedContext.fetch(request)
-                for data in showsResult as [NSManagedObject] {
-                    var show = CoreDataShow()
-                    show.showID = data.value(forKey: "show_id") as! Int
-                    show.location = data.value(forKey: "city_state_country") as! String
-                    show.printDate = data.value(forKey: "date_printed") as! String
-                    show.poster = data.value(forKey: "poster") as! String
-                    show.year = data.value(forKey: "year") as! Int
-                    //show.showDate = data.value(forKey: "date_show") as! String
-                    shows.append(show)
-                }
-            }
-            catch let error as NSError {
-              print("Could not fetch. \(error), \(error.userInfo)")
-            }
+            loadShows()
         }
     }
 
+    func searchShows(searchStr: String) {
+        // Search all set lists to get all show IDs containing selected string in title
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "SetList")
+//        let sort = NSSortDescriptor(key: "date_show", ascending: true)
+//        request.sortDescriptors = [sort]
+        request.predicate = NSPredicate(format: "title CONTAINS[c] %@", searchStr)
+        do {
+          let showsResult = try managedContext.fetch(request)
+            var searchShowIDs = [Int]()
+            for data in showsResult as [NSManagedObject] {
+                // Store matching show IDs
+                searchShowIDs.append(data.value(forKey: "show_id") as! Int)
+            }
+            print("\(searchShowIDs.count)" + "  shows matched")
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func loadShows() {
+        // Load shows for selected year from Core Data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
+        let sort = NSSortDescriptor(key: "date_show", ascending: true)
+        request.sortDescriptors = [sort]
+        request.predicate = NSPredicate(format: "year == %@", year!.description)
+        do {
+          let showsResult = try managedContext.fetch(request)
+            for data in showsResult as [NSManagedObject] {
+                var show = CoreDataShow()
+                show.showID = data.value(forKey: "show_id") as! Int
+                show.location = data.value(forKey: "city_state_country") as! String
+                show.printDate = data.value(forKey: "date_printed") as! String
+                show.poster = data.value(forKey: "poster") as! String
+                show.year = data.value(forKey: "year") as! Int
+                //show.showDate = data.value(forKey: "date_show") as! String
+                shows.append(show)
+            }
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
