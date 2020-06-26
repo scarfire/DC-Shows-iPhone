@@ -49,7 +49,6 @@ class ShowViewController: UIViewController {
             if let show = loadShowDetails() {
                 refreshUI(show: show)
             }
-            
         }
     }
 
@@ -85,6 +84,28 @@ class ShowViewController: UIViewController {
             return nil
         }
         return nil
+    }
+    
+    func refreshUI(show: CoreDataShow) {
+        showID = String(show.showID)
+        if show.user_audio != "" {
+            defaultAudio = show.user_audio
+        }
+        else {
+            defaultAudio = show.defaultAudio
+        }
+        if defaultAudio == "" {
+            btnAudio.isEnabled = false
+        }
+        else {
+            btnAudio.isEnabled = true
+        }
+        lblDate.text  = show.printDate
+        lblCity.text = show.location
+        lblBuilding.text = show.building
+        lblRating.text = (show.user_rating > 0) ? String(show.user_rating) : "Unrated"
+        let url = URL(string: show.poster)
+        downloadImage(from: url!)
     }
     
     @IBAction func edit(_ sender: Any) {
@@ -124,28 +145,6 @@ class ShowViewController: UIViewController {
     
     @IBAction func swipeRight(_ sender: Any) {
        // showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
-    }
-    
-    func refreshUI(show: CoreDataShow) {
-        showID = String(show.showID)
-        if show.user_audio != "" {
-            defaultAudio = show.user_audio
-        }
-        else {
-            defaultAudio = show.defaultAudio
-        }
-        if defaultAudio == "" {
-            btnAudio.isEnabled = false
-        }
-        else {
-            btnAudio.isEnabled = true
-        }
-        lblDate.text  = show.printDate
-        lblCity.text = show.location
-        lblBuilding.text = show.building
-        lblRating.text = (show.user_rating > 0) ? String(show.user_rating) : "Unrated"
-        let url = URL(string: show.poster)
-        downloadImage(from: url!)
     }
     
     func setListDownloaded(setList: [SongModel]) {
