@@ -14,7 +14,8 @@ class ShowViewController: UIViewController {
     var showID: String?
     var showDate: String?
     var searchStr: String?
-    var setList: [SongModel] = []
+    var setList: [CoreDataSetList] = []
+    var show = CoreDataShow()
     var defaultAudio: String?
     
     @IBOutlet weak var tableView: UITableView!
@@ -49,7 +50,94 @@ class ShowViewController: UIViewController {
             if let show = loadShowDetails() {
                 refreshUI(show: show)
             }
+            loadSetLists()
         }
+    }
+
+    func loadSetLists() {
+       // Load set lists for show from Core Data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "SetList")
+        let sort = NSSortDescriptor(key: "id", ascending: true)
+        request.sortDescriptors = [sort]
+        request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
+        do {
+            var previousSet: String = ""
+            let result = try managedContext.fetch(request)
+            for data in result as [NSManagedObject] {
+                var song = CoreDataSetList()
+                song.title = data.value(forKey: "title") as! String
+                song.setNumber = data.value(forKey: "set_number") as! String
+                if previousSet != song.setNumber {
+                    // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
+                    switch song.setNumber {
+                        case "1":
+                            AddSetTitle(setNumber: song.setNumber)
+                        case "2", "3", "E":
+                            AddBlankRow()
+                            AddSetTitle(setNumber: song.setNumber)
+                        default:
+                            break
+                    }
+                    previousSet = song.setNumber
+                }
+                setList.append(song)
+            }
+
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+            return
+        }
+        // Load table view
+        tableView.reloadData()
+        let topRow = IndexPath(row: 0, section: 0)
+        tableView.scrollToRow(at: topRow, at: .top, animated: true)
+    }
+    
+    fileprivate func getSetName(setNumber: String) -> String {
+        switch setNumber {
+        case "1":
+            return "1st Set"
+        case "2":
+            return "2nd Set"
+        case "3":
+            return "3rd Set"
+        case "Notes":
+            return "Notes"
+        default:
+            return "Encore"
+        }
+    }
+    
+    fileprivate func AddSetTitle(setNumber: String) {
+        var song = CoreDataSetList()
+        song.title = getSetName(setNumber: setNumber)
+        song.setNumber = "T" // Title
+        setList.append(song)
+    }
+    
+    fileprivate func AddBlankRow() {
+        var song = CoreDataSetList()
+        song.title = ""
+        song.setNumber = "B" // Blank
+        setList.append(song)
+    }
+    
+    fileprivate func AddNotesSection() {
+        AddBlankRow()
+        AddSetTitle(setNumber: "Notes")
+        AddNotes()
+    }
+
+    fileprivate func AddNotes() {
+        var song = CoreDataSetList()
+        song.title = show.user_notes
+        song.setNumber = "N"
+        setList.append(song)
     }
 
     func loadShowDetails() -> CoreDataShow? {
@@ -63,9 +151,8 @@ class ShowViewController: UIViewController {
         request.sortDescriptors = [sort]
         request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
         do {
-          let showsResult = try managedContext.fetch(request)
-            for data in showsResult as [NSManagedObject] {
-                var show = CoreDataShow()
+          let result = try managedContext.fetch(request)
+            for data in result as [NSManagedObject] {
                 show.showID = data.value(forKey: "show_id") as! Int
                 show.location = data.value(forKey: "city_state_country") as! String
                 show.printDate = data.value(forKey: "date_printed") as! String
@@ -147,13 +234,6 @@ class ShowViewController: UIViewController {
        // showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
     }
     
-    func setListDownloaded(setList: [SongModel]) {
-        self.setList = setList
-        tableView.reloadData()
-        let topRow = IndexPath(row: 0, section: 0)
-        tableView.scrollToRow(at: topRow, at: .top, animated: true)
-    }
-    
     func sendMessage(msg: String)
     {
         showAlert(msg: msg)
@@ -172,7 +252,7 @@ extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath)
-        if setList[indexPath.row].set == "T" {
+        if setList[indexPath.row].setNumber == "T" {
             // Title row
             cell.backgroundColor = UIColor.darkGray
             cell.textLabel?.textColor = UIColor.white
@@ -180,12 +260,12 @@ extension ShowViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             cell.backgroundColor = UIColor.white
             cell.textLabel?.textColor = UIColor.black
-            if setList[indexPath.row].set == "N" {
+            if setList[indexPath.row].setNumber == "N" {
                 // Notes cell - needs to be bigger than one line
                 cell.textLabel?.numberOfLines = 20
             }
         }
-        cell.textLabel?.text = setList[indexPath.row].title!
+        cell.textLabel?.text = setList[indexPath.row].title
         return cell
     }
 }
