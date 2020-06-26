@@ -20,8 +20,9 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        let core = CoreDataLocal()
-        core.downloadData()
+       // Don't need to load data anymore from PHP
+        //let core = CoreDataLocal()
+        //core.downloadData()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -32,7 +33,6 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
           let toursResult = try managedContext.fetch(tourFetch)
             for data in toursResult as [NSManagedObject] {
                 print(data.value(forKey: "year") as! Int)
-                print(data.value(forKey: "poster") as! String)
             }
         }
         catch let error as NSError {
@@ -44,7 +44,6 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
         do {
           let showsResult = try managedContext.fetch(showsFetch)
             for data in showsResult as [NSManagedObject] {
-                print(data.value(forKey: "date_printed") as! String)
                 print(data.value(forKey: "city_state_country") as! String)
             }
         }
@@ -57,7 +56,6 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
         do {
           let setListsResult = try managedContext.fetch(setListsFetch)
             for data in setListsResult as [NSManagedObject] {
-                print(data.value(forKey: "id") as! Int)
                 print(data.value(forKey: "title") as! String)
             }
         }
