@@ -67,7 +67,9 @@ class ShowsViewController: UIViewController {
                     return
                 }
             }
-            shows = shows.sorted {$0.printDate < $1.printDate}
+            shows = shows.sorted {
+                $0.showDate < $1.showDate
+            }
         }
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
