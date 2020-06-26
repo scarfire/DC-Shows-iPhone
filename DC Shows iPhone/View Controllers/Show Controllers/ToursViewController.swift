@@ -39,29 +39,31 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
 
-        let showsFetch = NSFetchRequest<NSManagedObject>(entityName: "Show")
-
-        do {
-          let showsResult = try managedContext.fetch(showsFetch)
-            for data in showsResult as [NSManagedObject] {
-                print(data.value(forKey: "city_state_country") as! String)
-            }
-        }
-        catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
-
-        let setListsFetch = NSFetchRequest<NSManagedObject>(entityName: "SetList")
-
-        do {
-          let setListsResult = try managedContext.fetch(setListsFetch)
-            for data in setListsResult as [NSManagedObject] {
-                print(data.value(forKey: "title") as! String)
-            }
-        }
-        catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
+//        // Load all shows
+//        let showsFetch = NSFetchRequest<NSManagedObject>(entityName: "Show")
+//
+//        do {
+//          let showsResult = try managedContext.fetch(showsFetch)
+//            for data in showsResult as [NSManagedObject] {
+//                print(data.value(forKey: "city_state_country") as! String)
+//            }
+//        }
+//        catch let error as NSError {
+//          print("Could not fetch. \(error), \(error.userInfo)")
+//        }
+//
+//        // Load all set lists
+//        let setListsFetch = NSFetchRequest<NSManagedObject>(entityName: "SetList")
+//
+//        do {
+//          let setListsResult = try managedContext.fetch(setListsFetch)
+//            for data in setListsResult as [NSManagedObject] {
+//                print(data.value(forKey: "title") as! String)
+//            }
+//        }
+//        catch let error as NSError {
+//          print("Could not fetch. \(error), \(error.userInfo)")
+//        }
 
         collectionView.reloadData()
     }
