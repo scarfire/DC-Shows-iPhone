@@ -24,6 +24,7 @@ struct CoreDataShow {
     var poster: String = ""
     var showDate: String = ""
     var printDate: String = ""
+    var year: Int = 0
 }
 
 struct CoreDataSetList {
@@ -86,7 +87,7 @@ class CoreDataLocal {
     func downloadShows() {
         // Get all shows
         /*
-                [{"id":87,"title":"Bertha","set_number":"1"},{"id":88,"title":"Good Lovin'","set_number":"1"},{"id":89,"title":"Shakedown Street","set_number":"1"},{"id":90,"title":"They Love Each Other","set_number":"1"},{"id":91,"title":"Black-Throated Wind","set_number":"1"},{"id":92,"title":"Mr. Charlie","set_number":"1"},{"id":93,"title":"Mississippi Half-Step Uptown Toodeloo","set_number":"1"},{"id":94,"title":"Throwing Stones","set_number":"1"},{"id":95,"title":"Althea","set_number":"2"},{"id":96,"title":"Estimated Prophet","set_number":"2"},{"id":97,"title":"Eyes of the World","set_number":"2"},{"id":98,"title":"Terrapin Station","set_number":"2"},{"id":99,"title":"Drums","set_number":"2"},{"id":100,"title":"Space","set_number":"2"},{"id":101,"title":"My Favorite Things","set_number":"2"},{"id":102,"title":"Days Between","set_number":"2"},{"id":103,"title":"China Cat Sunflower","set_number":"2"},{"id":104,"title":"I Know You Rider","set_number":"2"},{"id":105,"title":"Touch of Grey","set_number":"E"}]
+                [{"show_id":70,"date_show":"2015-10-29","date_printed":"Oct 29, 2015","year":2015,"city_state_country":"Albany, NY","building":"Times Union Center","default_audio":"https:\/\/archive.org\/details\/10-29-15DeadAndCompanyTimesUnionCenterAlbanyNy","poster":"2015albany.png"},{"show_id":71,"date_show":"2015-10-31","date_printed":"Oct 31, 2015","year":2015,"city_state_country":"New York, NY","building":"Madison Square Garden","default_audio":"https:\/\/archive.org\/details\/Dc20151031.14.eyesOfTheWorld","poster":"2015newyorkcity.png"},{"show_id":82,"date_show":"2015-11-01","date_printed":"Nov 01, 2015","year":2015,"city_state_country":"New York, NY","building":"Madison Square Garden","default_audio":"https:\/\/archive.org\/details\/DeadCo.11-1-2015MSG","poster":"2015newyorkcity.png"}
                 */
         let url = URL(string: "https://toddlstevens.com/apps/dcshows/mobile/server/getshowsforCoreData.php?last_updated=2000-01-01")
         let data = try? Data(contentsOf: url!)
@@ -101,12 +102,14 @@ class CoreDataLocal {
                 let location = jsonElement["city_state_country"] as? String,
                 let showDate = jsonElement["date_show"] as? String,
                 let datePrinted = jsonElement["date_printed"] as? String,
+                let year = jsonElement["year"] as? Int,
                 let building = jsonElement["building"] as? String,
                 let defaultAudio = jsonElement["default_audio"] as? String,
                 let poster = jsonElement["poster"] as? String {
                     show.showID = showID
                     show.showDate = showDate
                     show.printDate = datePrinted
+                    show.year = year
                     show.building = building
                     show.location = location
                     show.defaultAudio = defaultAudio
@@ -131,6 +134,7 @@ class CoreDataLocal {
             show.setValue(s.location, forKey: "city_state_country")
             show.setValue(s.defaultAudio, forKey: "default_audio")
             show.setValue(s.poster, forKeyPath: "poster")
+            show.setValue(s.year, forKey: "year")
             show.setValue(0, forKey: "user_rating")
             show.setValue("N", forKey: "user_attended")
             show.setValue("", forKey: "user_audio")

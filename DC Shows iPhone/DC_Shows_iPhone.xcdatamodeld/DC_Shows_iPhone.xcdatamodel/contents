@@ -24,6 +24,7 @@
         <attribute name="user_audio" optional="YES" attributeType="String"/>
         <attribute name="user_notes" optional="YES" attributeType="String"/>
         <attribute name="user_rating" attributeType="Integer 16" minValueString="0" maxValueString="10" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="year" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Tour" representedClassName="Tour" syncable="YES" codeGenerationType="class">
         <attribute name="poster" attributeType="String"/>
@@ -36,7 +37,7 @@
     </entity>
     <elements>
         <element name="Photo" positionX="-36" positionY="27" width="128" height="103"/>
-        <element name="Show" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="Show" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="Video" positionX="-54" positionY="36" width="128" height="28"/>
         <element name="SetList" positionX="-36" positionY="72" width="128" height="103"/>
         <element name="Tour" positionX="-27" positionY="81" width="128" height="73"/>
