@@ -16,7 +16,7 @@
         <attribute name="building" attributeType="String"/>
         <attribute name="city_state_country" attributeType="String"/>
         <attribute name="date_printed" attributeType="String"/>
-        <attribute name="date_show" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date_show" attributeType="String"/>
         <attribute name="default_audio" optional="YES" attributeType="String"/>
         <attribute name="poster" attributeType="String"/>
         <attribute name="show_id" attributeType="Integer 16" usesScalarValueType="YES"/>

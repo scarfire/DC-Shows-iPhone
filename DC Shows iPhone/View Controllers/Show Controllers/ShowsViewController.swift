@@ -35,24 +35,46 @@ class ShowsViewController: UIViewController {
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSManagedObject>(entityName: "SetList")
-//        let sort = NSSortDescriptor(key: "date_show", ascending: true)
-//        request.sortDescriptors = [sort]
         request.predicate = NSPredicate(format: "title CONTAINS[c] %@", searchStr)
         do {
           let showsResult = try managedContext.fetch(request)
-            var searchShowIDs = [Int]()
-            for data in showsResult as [NSManagedObject] {
-                // Store matching show IDs
-                searchShowIDs.append(data.value(forKey: "show_id") as! Int)
+            shows.removeAll()
+            for dataID in showsResult as [NSManagedObject] {
+                // Got matching show IDs - look up each and store in show
+                let showID = dataID.value(forKey: "show_id") as! Int
+                let showRequest = NSFetchRequest<NSManagedObject>(entityName: "Show")
+                showRequest.predicate = NSPredicate(format: "show_id == %i", showID)
+                do {
+                  let showResult = try managedContext.fetch(showRequest)
+                    for data in showResult as [NSManagedObject] {
+                        var show = CoreDataShow()
+                        show.showID = data.value(forKey: "show_id") as! Int
+                        show.location = data.value(forKey: "city_state_country") as! String
+                        show.printDate = data.value(forKey: "date_printed") as! String
+                        show.showDate = data.value(forKey: "date_show") as! String
+                        show.poster = data.value(forKey: "poster") as! String
+                        show.building = data.value(forKey: "building") as! String
+                        show.defaultAudio = data.value(forKey: "default_audio") as! String
+                        show.user_rating = data.value(forKey: "user_rating") as! Int
+                        show.user_notes = data.value(forKey: "user_notes") as! String
+                        show.user_audio = data.value(forKey: "user_audio") as! String
+                        show.user_attended = data.value(forKey: "user_attended") as! String
+                        shows.append(show)
+                    }
+                }
+                catch let error as NSError {
+                  print("Could not fetch. \(error), \(error.userInfo)")
+                    return
+                }
             }
-            loadShows(searchShows: searchShowIDs)
+            shows = shows.sorted {$0.printDate < $1.printDate}
         }
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
-    func loadShows(searchShows: [Int]? = nil) {
+    func loadShows() {
         // Load shows for selected year from Core Data
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -61,15 +83,8 @@ class ShowsViewController: UIViewController {
         let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
         let sort = NSSortDescriptor(key: "date_show", ascending: true)
         request.sortDescriptors = [sort]
-        if searchShows == nil {
-            // Load by year
-            let intYear = Int(year!)!
-            request.predicate = NSPredicate(format: "year == %i", intYear)
-        }
-        else {
-            // Load by search
-            request.predicate = NSPredicate(format: "show_id == %i ", 15)
-        }
+        let intYear = Int(year!)!
+        request.predicate = NSPredicate(format: "year == %i", intYear)
         do {
           let showsResult = try managedContext.fetch(request)
             for data in showsResult as [NSManagedObject] {

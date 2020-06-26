@@ -86,6 +86,7 @@ class CoreDataLocal {
                print("Could not save. \(error), \(error.userInfo)")
             }
         }
+        print("Imported \(tours.count) Tour records")
     }
     
     func downloadShows() {
@@ -132,7 +133,7 @@ class CoreDataLocal {
             let entity = NSEntityDescription.entity(forEntityName: "Show", in: managedContext)!
             let show = NSManagedObject(entity: entity, insertInto: managedContext)
             show.setValue(Int16(s.showID), forKey: "show_id")
-            show.setValue(stringToDate(strDate: s.showDate), forKey: "date_show")
+            show.setValue(s.showDate, forKey: "date_show")
             show.setValue(s.printDate, forKey: "date_printed")
             show.setValue(s.building, forKey: "building")
             show.setValue(s.location, forKey: "city_state_country")
@@ -150,16 +151,7 @@ class CoreDataLocal {
                print("Could not save. \(error), \(error.userInfo)")
             }
         }
-
-    }
-    
-    func stringToDate(strDate: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let date = dateFormatter.date(from: strDate) {
-            return date
-        }
-        return Date()
+        print("Imported \(shows.count) Show records")
     }
     
     func downloadSetLists() {
@@ -190,20 +182,6 @@ class CoreDataLocal {
                     song.setNumber = setNumber
                     song.id = id
             }
-            
-//            if previousSet != song.setNumber {
-//                // Set changed - add an extra set title row to set list and a blank above if not changing to 1st set
-//                switch song.setNumber {
-//                    case "1":
-//                        AddSetTitle(set: song.setNumber!, setList: &setLists)
-//                    case "2", "3", "E":
-//                        AddBlankRow(&setList)
-//                        AddSetTitle(set: song.setNumber!, setList: &setLists)
-//                    default:
-//                        break
-//                }
-//                previousSet = song.set!
-//            }
             setLists.append(song)
         }
         
@@ -227,52 +205,6 @@ class CoreDataLocal {
                print("Could not save. \(error), \(error.userInfo)")
             }
         }
-
-//        AddNotesSection(&setList)
-//        DispatchQueue.main.async(execute: { () -> Void in
-//            self.delegate.setListDownloaded(setList: setLists)
-//        })
+        print("Imported \(setLists.count) Set List records")
     }
-//
-//    fileprivate func getSetName(setNumber: String) -> String {
-//        switch setNumber {
-//        case "1":
-//            return "1st Set"
-//        case "2":
-//            return "2nd Set"
-//        case "3":
-//            return "3rd Set"
-//        case "Notes":
-//            return "Notes"
-//        default:
-//            return "Encore"
-//        }
-//    }
-//
-//    fileprivate func AddSetTitle(setNumber: String, setList: inout [SongModel]) {
-//        let song = SongModel()
-//        song.title = getSetName(setNumber: setNumber)
-//        song.set = "T" // Title
-//        setList.append(song)
-//    }
-//
-//    fileprivate func AddBlankRow(_ setList: inout [SongModel]) {
-//        let song = SongModel()
-//        song.title = ""
-//        song.set = "B" // Blank
-//        setList.append(song)
-//    }
-//
-//    fileprivate func AddNotesSection(_ setList: inout [SongModel]) {
-//        AddBlankRow(&setList)
-//        AddSetTitle(set: "Notes", setList: &setLists)
-//        AddNotes(&setList)
-//    }
-//
-//    fileprivate func AddNotes(_ setList: inout [SongModel]) {
-//        let song = SongModel()
-//        song.title = ""
-//        song.set = "N"
-//        setList.append(song)
-//    }
 }

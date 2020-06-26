@@ -20,9 +20,11 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-       // Don't need to load data anymore from PHP
-        //let core = CoreDataLocal()
-        //core.downloadData()
+
+        // Load from PHP
+//        let core = CoreDataLocal()
+//        core.downloadData()
+
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
