@@ -45,14 +45,14 @@ class ShowsViewController: UIViewController {
                 // Store matching show IDs
                 searchShowIDs.append(data.value(forKey: "show_id") as! Int)
             }
-            print("\(searchShowIDs.count)" + "  shows matched")
+            loadShows(searchShows: searchShowIDs)
         }
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
-    func loadShows() {
+    func loadShows(searchShows: [Int]? = nil) {
         // Load shows for selected year from Core Data
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -61,7 +61,15 @@ class ShowsViewController: UIViewController {
         let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
         let sort = NSSortDescriptor(key: "date_show", ascending: true)
         request.sortDescriptors = [sort]
-        request.predicate = NSPredicate(format: "year == %@", year!.description)
+        if searchShows == nil {
+            // Load by year
+            let intYear = Int(year!)!
+            request.predicate = NSPredicate(format: "year == %i", intYear)
+        }
+        else {
+            // Load by search
+            request.predicate = NSPredicate(format: "show_id == %i ", 15)
+        }
         do {
           let showsResult = try managedContext.fetch(request)
             for data in showsResult as [NSManagedObject] {
