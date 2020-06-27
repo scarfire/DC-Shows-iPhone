@@ -32,8 +32,8 @@ class VideosViewController: UIViewController {
         let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "Video")
 
         do {
-          let intShowID = Int16(showID!)
-          showDetailsFetch.predicate = NSPredicate(format: "showID == %i", intShowID!)
+          let intShowID = Int16(showID!)!
+          showDetailsFetch.predicate = NSPredicate(format: "show_id == %i", intShowID)
           videos = try managedContext.fetch(showDetailsFetch)
         }
         catch let error as NSError {

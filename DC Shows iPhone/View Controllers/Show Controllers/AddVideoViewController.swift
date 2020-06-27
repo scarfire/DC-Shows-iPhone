@@ -33,7 +33,7 @@ class AddVideoViewController: UIViewController {
         let entity = NSEntityDescription.entity(forEntityName: "Video", in: managedContext)!
         let show = NSManagedObject(entity: entity, insertInto: managedContext)
 
-        show.setValue(Int16(showID!), forKey: "showID")
+        show.setValue(Int16(showID!), forKey: "show_id")
         show.setValue(txtTitle.text, forKeyPath: "title")
         show.setValue(txtLink.text, forKeyPath: "url")
         do {
