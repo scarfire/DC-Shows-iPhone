@@ -53,7 +53,7 @@ class ShowViewController: UIViewController {
             loadSetLists()
         }
     }
-
+    
     func loadSetLists() {
        // Load set lists for show from Core Data
         setList.removeAll()
@@ -87,7 +87,10 @@ class ShowViewController: UIViewController {
                 }
                 setList.append(song)
             }
-
+            if show.user_notes != "" {
+                // Notes exist - add to set list
+                AddNotesSection()
+            }
         }
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
