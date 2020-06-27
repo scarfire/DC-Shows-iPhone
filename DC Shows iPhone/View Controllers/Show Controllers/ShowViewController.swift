@@ -56,6 +56,7 @@ class ShowViewController: UIViewController {
 
     func loadSetLists() {
        // Load set lists for show from Core Data
+        setList.removeAll()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -193,6 +194,38 @@ class ShowViewController: UIViewController {
         }
     }
     
+    func getNextShow() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
+        let sort = NSSortDescriptor(key: "date_show", ascending: true)
+        request.sortDescriptors = [sort]
+        do {
+          let result = try managedContext.fetch(request)
+            var index = 0
+            for data in result as [NSManagedObject] {
+                let currentID = data.value(forKey: "show_id") as! Int
+                if String(currentID) == showID! {
+                    // Found matching record - get next show id
+                    if (index+1) < result.count {
+                        showID = String(result[index+1].value(forKey: "show_id") as! Int)
+                        print("Show ID:  " + showID!)
+                        return
+                    }
+                }
+                index += 1
+            }
+            // Was last show in array, can't go forward, so assign 11/08/19 Hampton
+            showID = "15"
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+            return
+        }
+    }
+
     func refreshUI(show: CoreDataShow) {
         showID = String(show.showID)
         if show.user_audio != "" {
@@ -251,7 +284,11 @@ class ShowViewController: UIViewController {
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
-       // showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Next")
+        getNextShow()
+        if let show = loadShowDetails() {
+            refreshUI(show: show)
+        }
+        loadSetLists()
     }
     
     @IBAction func swipeRight(_ sender: Any) {
