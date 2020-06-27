@@ -246,7 +246,14 @@ class ShowViewController: UIViewController {
         lblDate.text  = show.printDate
         lblCity.text = show.location
         lblBuilding.text = show.building
-        lblRating.text = (show.user_rating > 0) ? String(show.user_rating) : "Unrated"
+        if show.user_attended == "Y" {
+            lblRating.text = (show.user_rating > 0) ? String(show.user_rating) + " - ATTENDED" : "Unrated - ATTENDED"
+            lblRating.textColor = UIColor.red
+        }
+        else {
+            lblRating.text = (show.user_rating > 0) ? String(show.user_rating) : "Unrated"
+            lblRating.textColor = UIColor.black
+        }
         let url = URL(string: show.poster)
         downloadImage(from: url!)
     }

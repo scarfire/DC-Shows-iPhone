@@ -44,7 +44,7 @@ class ShowEditViewController: UIViewController {
             lblRating.text =  "\(rating!)"
             stepper.value = Double(rating!)
             let attended = data.value(forKeyPath: "user_attended") as? String
-            if attended == "true" {
+            if attended == "Y" {
                 switchAttended.isOn = true
             }
             else {
@@ -83,10 +83,10 @@ class ShowEditViewController: UIViewController {
                 show.setValue(txtNotes.text, forKeyPath: "user_notes")
                 show.setValue(Int16(stepper.value), forKeyPath: "user_rating")
                 if switchAttended.isOn {
-                    show.setValue("true", forKeyPath: "user_attended")
+                    show.setValue("Y", forKeyPath: "user_attended")
                 }
                 else {
-                    show.setValue("false", forKeyPath: "user_attended")
+                    show.setValue("N", forKeyPath: "user_attended")
                 }
             }
             do {
