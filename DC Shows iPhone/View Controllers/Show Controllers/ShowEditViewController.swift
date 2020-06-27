@@ -18,8 +18,6 @@ class ShowEditViewController: UIViewController {
     @IBOutlet weak var switchAttended: UISwitch!
     
     var showID: String?
-    var shows: [NSManagedObject] = []
-    var show = NSManagedObject()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,49 +26,29 @@ class ShowEditViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-        txtNotes.text = ""
+      txtNotes.text = ""
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
       }
       let managedContext = appDelegate.persistentContainer.viewContext
-      let showDetailsFetch = NSFetchRequest<NSManagedObject>(entityName: "ShowDetails")
-      
+      let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
+      request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
       do {
-        let intShowID = Int16(showID!)
-        showDetailsFetch.predicate = NSPredicate(format: "showID == %i", intShowID!)
-        shows = try managedContext.fetch(showDetailsFetch)
-        if shows.count > 0 {
+        let result = try managedContext.fetch(request)
+        for data in result as [NSManagedObject] {
             // Object exists - grab 1st in case of multiples
-            show = shows.first!
-            txtNotes.text = show.value(forKeyPath: "notes") as? String
-            txtAudio.text = show.value(forKeyPath: "audio") as? String
-            let rating = show.value(forKeyPath: "rating") as? Int16
-            if rating != nil {
-                lblRating.text =  "\(rating!)"
-                stepper.value = Double(rating!)
-            }
-            let attended = show.value(forKeyPath: "attended") as? String
+            
+            txtNotes.text = data.value(forKeyPath: "user_notes") as? String
+            txtAudio.text = data.value(forKeyPath: "user_audio") as? String
+            let rating = data.value(forKeyPath: "user_rating") as? Int
+            lblRating.text =  "\(rating!)"
+            stepper.value = Double(rating!)
+            let attended = data.value(forKeyPath: "user_attended") as? String
             if attended == "true" {
                 switchAttended.isOn = true
             }
             else {
                 switchAttended.isOn = false
-            }
-        }
-        else {
-            // Object doesn't exist yet - create it
-            let entity = NSEntityDescription.entity(forEntityName: "ShowDetails", in: managedContext)!
-            show = NSManagedObject(entity: entity, insertInto: managedContext)
-            show.setValue(Int16(showID!), forKey: "showID")
-            show.setValue("false", forKeyPath: "attended")
-            show.setValue(0, forKeyPath: "rating")
-            switchAttended.isOn = false
-            stepper.value = 0.0
-            do {
-              try managedContext.save()
-            }
-            catch let error as NSError {
-              print("Could not save. \(error), \(error.userInfo)")
             }
         }
       }
@@ -89,29 +67,38 @@ class ShowEditViewController: UIViewController {
     
     @IBAction func save(_ sender: Any) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-           return
+            return
         }
-         
-         let managedContext = appDelegate.persistentContainer.viewContext
-         
-        show.setValue(Int16(showID!), forKey: "showID")
-        show.setValue(txtAudio.text, forKeyPath: "audio")
-        show.setValue(txtNotes.text, forKeyPath: "notes")
-        show.setValue(Int16(stepper.value), forKeyPath: "rating")  
-        if switchAttended.isOn {
-            show.setValue("true", forKeyPath: "attended")
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Show")
+        request.predicate = NSPredicate(format: "show_id == %@", showID!.description)
+        var show = NSManagedObject()
+        do {
+            let records = try managedContext.fetch(request)
+            if let records = records as? [NSManagedObject] {
+                show = records.first!
+                show.setValue(txtNotes.text, forKeyPath: "user_notes")
+                show.setValue(Int16(showID!), forKey: "show_id")
+                show.setValue(txtAudio.text, forKeyPath: "user_audio")
+                show.setValue(txtNotes.text, forKeyPath: "user_notes")
+                show.setValue(Int16(stepper.value), forKeyPath: "user_rating")
+                if switchAttended.isOn {
+                    show.setValue("true", forKeyPath: "user_attended")
+                }
+                else {
+                    show.setValue("false", forKeyPath: "user_attended")
+                }
+            }
+            do {
+                try managedContext.save()
+            }
+            catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
         }
-        else {
-            show.setValue("false", forKeyPath: "attended")
+        catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
         }
-
-         // 4
-         do {
-           try managedContext.save()
-         }
-         catch let error as NSError {
-           print("Could not save. \(error), \(error.userInfo)")
-         }
         navigationController?.popViewController(animated: true)
     }
    
