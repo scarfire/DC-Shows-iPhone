@@ -39,7 +39,7 @@ class ShowViewController: UIViewController {
         }
         if showID == nil {
             // Random - need random ID first
-            //showDetailModel.getRandomShowID()
+            setRandomShowID()
         }
     }
     
@@ -173,6 +173,26 @@ class ShowViewController: UIViewController {
         return nil
     }
     
+    func setRandomShowID() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
+        do {
+          let result = try managedContext.fetch(request)
+          let randomIndex = Int.random(in: 0..<result.count)
+          let data = result[randomIndex]
+          let id = data.value(forKey: "show_id") as! Int
+          showID = String(id)
+          print("Show ID:  " + showID!)
+        }
+        catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+            return
+        }
+    }
+    
     func refreshUI(show: CoreDataShow) {
         showID = String(show.showID)
         if show.user_audio != "" {
@@ -223,7 +243,11 @@ class ShowViewController: UIViewController {
     }
     
     @IBAction func random(_ sender: Any) {
-       // showDetailModel.getRandomShowID()
+       setRandomShowID()
+       if let show = loadShowDetails() {
+           refreshUI(show: show)
+       }
+       loadSetLists()
     }
     
     @IBAction func swipeLeft(_ sender: Any) {

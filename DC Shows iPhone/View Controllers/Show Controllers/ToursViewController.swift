@@ -45,20 +45,6 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
         catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
-
-//        // Load all set lists
-//        let setListsFetch = NSFetchRequest<NSManagedObject>(entityName: "SetList")
-//
-//        do {
-//          let setListsResult = try managedContext.fetch(setListsFetch)
-//            for data in setListsResult as [NSManagedObject] {
-//                print(data.value(forKey: "title") as! String)
-//            }
-//        }
-//        catch let error as NSError {
-//          print("Could not fetch. \(error), \(error.userInfo)")
-//        }
-
         collectionView.reloadData()
     }
     
