@@ -193,14 +193,14 @@ class ShowViewController: UIViewController {
             return
         }
     }
-    
-    func getNextShow() {
+
+    func getAdjacentShow(nextShow: Bool) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSManagedObject>(entityName: "Show")
-        let sort = NSSortDescriptor(key: "date_show", ascending: true)
+        let sort = NSSortDescriptor(key: "date_show", ascending: nextShow)
         request.sortDescriptors = [sort]
         do {
           let result = try managedContext.fetch(request)
@@ -284,7 +284,7 @@ class ShowViewController: UIViewController {
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
-        getNextShow()
+        getAdjacentShow(nextShow: true)
         if let show = loadShowDetails() {
             refreshUI(show: show)
         }
@@ -292,7 +292,11 @@ class ShowViewController: UIViewController {
     }
     
     @IBAction func swipeRight(_ sender: Any) {
-       // showDetailModel.getAdjacentShow(showDate: showDate!, showType: "Previous")
+       getAdjacentShow(nextShow: false)
+       if let show = loadShowDetails() {
+           refreshUI(show: show)
+       }
+       loadSetLists()
     }
     
     func sendMessage(msg: String)
