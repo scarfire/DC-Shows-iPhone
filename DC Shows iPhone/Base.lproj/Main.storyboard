@@ -129,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fl9-mf-Etd">
-                                <rect key="frame" x="0.0" y="94" width="414" height="708"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="PDL-eZ-vFe">
                                     <size key="itemSize" width="182" height="270"/>
@@ -190,9 +190,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="603-TB-r6W" firstAttribute="trailing" secondItem="Fl9-mf-Etd" secondAttribute="trailing" id="Abg-ZD-Eg4"/>
-                            <constraint firstItem="Fl9-mf-Etd" firstAttribute="centerY" secondItem="6Yq-cG-h1n" secondAttribute="centerY" id="EfL-q9-53y"/>
+                            <constraint firstItem="603-TB-r6W" firstAttribute="bottom" secondItem="Fl9-mf-Etd" secondAttribute="bottom" id="Edv-xn-40g"/>
                             <constraint firstItem="Fl9-mf-Etd" firstAttribute="leading" secondItem="603-TB-r6W" secondAttribute="leading" id="Egd-4v-mkE"/>
-                            <constraint firstItem="Fl9-mf-Etd" firstAttribute="top" secondItem="603-TB-r6W" secondAttribute="top" constant="6" id="KuK-7Z-MB8"/>
+                            <constraint firstItem="Fl9-mf-Etd" firstAttribute="top" secondItem="603-TB-r6W" secondAttribute="top" constant="6" id="kC7-DP-spD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="603-TB-r6W"/>
                     </view>
