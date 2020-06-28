@@ -17,17 +17,11 @@
 		1C940CF6248AE096003A320B /* VideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF5248AE096003A320B /* VideosViewController.swift */; };
 		1C940CF8248AE11F003A320B /* AddVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF7248AE11F003A320B /* AddVideoViewController.swift */; };
 		1C940CFA248AE136003A320B /* ShowEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CF9248AE136003A320B /* ShowEditViewController.swift */; };
-		1C940CFD248AE334003A320B /* ShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CFC248AE334003A320B /* ShowModel.swift */; };
-		1C940CFF248AE34D003A320B /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940CFE248AE34D003A320B /* VideoModel.swift */; };
-		1C940D01248AE3A5003A320B /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D00248AE3A5003A320B /* SongModel.swift */; };
-		1C940D03248AE3C9003A320B /* TourModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D02248AE3C9003A320B /* TourModel.swift */; };
-		1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D04248AE460003A320B /* UserInfoModel.swift */; };
 		1C940D0B248B3B2A003A320B /* server in Resources */ = {isa = PBXBuildFile; fileRef = 1C940D0A248B3B2A003A320B /* server */; };
 		1C940D0E248C30BD003A320B /* ToursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D0D248C30BD003A320B /* ToursViewController.swift */; };
 		1C940D33248C3DDE003A320B /* TourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D32248C3DDE003A320B /* TourCollectionViewCell.swift */; };
 		1C940D35248C4BC7003A320B /* ShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D34248C4BC7003A320B /* ShowsViewController.swift */; };
 		1C940D37248C5A00003A320B /* ShowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D36248C5A00003A320B /* ShowCollectionViewCell.swift */; };
-		1C940D39248C6453003A320B /* ShowDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C940D38248C6453003A320B /* ShowDetailModel.swift */; };
 		1CDBC83B24A3930500139891 /* CoreDataLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDBC83A24A3930500139891 /* CoreDataLocal.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,17 +38,11 @@
 		1C940CF5248AE096003A320B /* VideosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosViewController.swift; sourceTree = "<group>"; };
 		1C940CF7248AE11F003A320B /* AddVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoViewController.swift; sourceTree = "<group>"; };
 		1C940CF9248AE136003A320B /* ShowEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditViewController.swift; sourceTree = "<group>"; };
-		1C940CFC248AE334003A320B /* ShowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowModel.swift; sourceTree = "<group>"; };
-		1C940CFE248AE34D003A320B /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
-		1C940D00248AE3A5003A320B /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
-		1C940D02248AE3C9003A320B /* TourModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourModel.swift; sourceTree = "<group>"; };
-		1C940D04248AE460003A320B /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		1C940D0A248B3B2A003A320B /* server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = server; sourceTree = "<group>"; };
 		1C940D0D248C30BD003A320B /* ToursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursViewController.swift; sourceTree = "<group>"; };
 		1C940D32248C3DDE003A320B /* TourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCollectionViewCell.swift; sourceTree = "<group>"; };
 		1C940D34248C4BC7003A320B /* ShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsViewController.swift; sourceTree = "<group>"; };
 		1C940D36248C5A00003A320B /* ShowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCollectionViewCell.swift; sourceTree = "<group>"; };
-		1C940D38248C6453003A320B /* ShowDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailModel.swift; sourceTree = "<group>"; };
 		1CDBC83A24A3930500139891 /* CoreDataLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataLocal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,12 +115,6 @@
 		1C940D0C248C305B003A320B /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				1C940D02248AE3C9003A320B /* TourModel.swift */,
-				1C940CFC248AE334003A320B /* ShowModel.swift */,
-				1C940D38248C6453003A320B /* ShowDetailModel.swift */,
-				1C940D00248AE3A5003A320B /* SongModel.swift */,
-				1C940CFE248AE34D003A320B /* VideoModel.swift */,
-				1C940D04248AE460003A320B /* UserInfoModel.swift */,
 				1CDBC83A24A3930500139891 /* CoreDataLocal.swift */,
 			);
 			path = DataModels;
@@ -225,13 +207,7 @@
 				1C940CE42489D236003A320B /* DC_Shows_iPhone.xcdatamodeld in Sources */,
 				1CDBC83B24A3930500139891 /* CoreDataLocal.swift in Sources */,
 				1C940D33248C3DDE003A320B /* TourCollectionViewCell.swift in Sources */,
-				1C940CFF248AE34D003A320B /* VideoModel.swift in Sources */,
 				1C940D35248C4BC7003A320B /* ShowsViewController.swift in Sources */,
-				1C940CFD248AE334003A320B /* ShowModel.swift in Sources */,
-				1C940D39248C6453003A320B /* ShowDetailModel.swift in Sources */,
-				1C940D05248AE460003A320B /* UserInfoModel.swift in Sources */,
-				1C940D01248AE3A5003A320B /* SongModel.swift in Sources */,
-				1C940D03248AE3C9003A320B /* TourModel.swift in Sources */,
 				1C940CFA248AE136003A320B /* ShowEditViewController.swift in Sources */,
 				1C940D0E248C30BD003A320B /* ToursViewController.swift in Sources */,
 				1C940CDA2489D236003A320B /* AppDelegate.swift in Sources */,
