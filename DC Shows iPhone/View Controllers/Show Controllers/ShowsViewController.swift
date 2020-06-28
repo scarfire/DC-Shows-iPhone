@@ -110,15 +110,25 @@ class ShowsViewController: UIViewController {
     }
     
      func downloadImage(from url: URL, cell: ShowCollectionViewCell) {
-       getData(from: url) {
-          data, response, error in
-          guard let data = data, error == nil else {
-             return
-          }
-          DispatchQueue.main.async() {
-             cell.poster.image = UIImage(data: data)
-          }
-       }
+        if let downloadedImage = readImageFromDocs(url: url) {
+            // Image aloready downloaded - load from local file
+            DispatchQueue.main.async() {
+              cell.poster.image = downloadedImage
+            }
+        }
+        else {
+            // Image not yet downloaded - download from server and write to local file
+            getData(from: url) { data, response, error in
+                  guard let data = data, error == nil else {
+                     return
+                  }
+                  DispatchQueue.main.async() {
+                    let uiImage = UIImage(data: data)
+                    cell.poster.image = uiImage
+                    self.writeImageToDocs(image: uiImage!, url: url)
+                  }
+            }
+        }
     }
 }
 

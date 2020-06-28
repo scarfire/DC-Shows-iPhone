@@ -85,7 +85,25 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
     }
 
     func downloadImage(from url: URL, cell: TourCollectionViewCell) {
-downloadImage(from: <#T##URL#>, cell: <#T##TourCollectionViewCell#>)
+        if let downloadedImage = readImageFromDocs(url: url) {
+            // Image aloready downloaded - load from local file
+            DispatchQueue.main.async() {
+              cell.poster.image = downloadedImage
+            }
+        }
+        else {
+            // Image not yet downloaded - download from server and write to local file
+            getData(from: url) { data, response, error in
+                  guard let data = data, error == nil else {
+                     return
+                  }
+                  DispatchQueue.main.async() {
+                    let uiImage = UIImage(data: data)
+                    cell.poster.image = uiImage
+                    self.writeImageToDocs(image: uiImage!, url: url)
+                  }
+            }
+        }
     }
 }
 
