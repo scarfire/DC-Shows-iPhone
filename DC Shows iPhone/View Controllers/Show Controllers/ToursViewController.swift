@@ -148,7 +148,7 @@ extension UIViewController {
         let fileName = url.lastPathComponent
         let destinationPath = URL(fileURLWithPath: documentsPath).appendingPathComponent(fileName)
 
-        debugPrint("destination path is",destinationPath)
+        //debugPrint("destination path is",destinationPath)
 
         do {
             try image.pngData()?.write(to: destinationPath)
