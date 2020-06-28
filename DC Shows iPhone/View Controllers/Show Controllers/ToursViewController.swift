@@ -22,8 +22,10 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
         searchBar.delegate = self
 
         // Load from PHP
-//        let core = CoreDataLocal()
-//        core.downloadData()
+        let core = CoreDataLocal()
+        if core.localDataEmpty() {
+            core.downloadData()
+        }
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return

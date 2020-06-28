@@ -45,6 +45,25 @@ class CoreDataLocal {
         downloadShows()
         downloadSetLists()
     }
+
+    func localDataEmpty() -> Bool {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return true
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let tourFetch = NSFetchRequest<NSManagedObject>(entityName: "Tour")
+        do {
+            let toursResult = try managedContext.fetch(tourFetch)
+            if toursResult.count > 0 {
+                // Tours exist in Core Data - no need to reload
+                return false
+            }
+        }
+        catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return true
+    }
     
     func downloadTours() {
         // Download all tours
