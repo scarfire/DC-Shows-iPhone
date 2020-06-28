@@ -85,14 +85,7 @@ class ToursViewController: UIViewController, UISearchBarDelegate {
     }
 
     func downloadImage(from url: URL, cell: TourCollectionViewCell) {
-        getData(from: url) { data, response, error in
-              guard let data = data, error == nil else {
-                 return
-              }
-              DispatchQueue.main.async() {
-                cell.poster.image = UIImage(data: data)
-              }
-        }
+downloadImage(from: <#T##URL#>, cell: <#T##TourCollectionViewCell#>)
     }
 }
 
@@ -127,5 +120,31 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func writeImageToDocs(image:UIImage, url: URL){
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+
+        let fileName = url.lastPathComponent
+        let destinationPath = URL(fileURLWithPath: documentsPath).appendingPathComponent(fileName)
+
+        debugPrint("destination path is",destinationPath)
+
+        do {
+            try image.pngData()?.write(to: destinationPath)
+        } catch {
+            debugPrint("writing file error", error)
+        }
+    }
+
+    func readImageFromDocs(url: URL)->UIImage?{
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let fileName = url.lastPathComponent
+        let filePath = URL(fileURLWithPath: documentsPath).appendingPathComponent(fileName).path
+        if FileManager.default.fileExists(atPath: filePath) {
+            return UIImage(contentsOfFile: filePath)
+        } else {
+            return nil
+        }
     }
 }
