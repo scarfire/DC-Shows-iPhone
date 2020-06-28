@@ -352,14 +352,24 @@ extension ShowViewController {
     }
     
      func downloadImage(from url: URL) {
-       getData(from: url) {
-          data, response, error in
-          guard let data = data, error == nil else {
-             return
-          }
-          DispatchQueue.main.async() {
-            self.imgPoster.image = UIImage(data: data)
-          }
+       if let downloadedImage = readImageFromDocs(url: url) {
+           // Image already downloaded - load from local file
+           DispatchQueue.main.async() {
+             self.imgPoster.image = downloadedImage
+           }
        }
+       else {
+           getData(from: url) {
+              data, response, error in
+              guard let data = data, error == nil else {
+                 return
+              }
+              DispatchQueue.main.async() {
+                 let uiImage = UIImage(data: data)
+                 self.imgPoster.image = uiImage
+                 self.writeImageToDocs(image: uiImage!, url: url)
+              }
+           }
+        }
     }
 }
